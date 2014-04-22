@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E9DCD538-DCE7-4D24-A5C0-03B93E737C05}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XNA_Map_Editor</RootNamespace>
+    <AssemblyName>XNA Map Editor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <ApplicationIcon>xna_map_editor.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>5F33E9DCCDAAF8B498903EC9455F6281251D03C8</ManifestCertificateThumbprint>
+    <ManifestKeyFile>XNA Map Editor_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>c:\maps\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\XNA Map Editor.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\XNA Map Editor.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Camera.cs" />
+    <Compile Include="Classes\FileFormat.cs" />
+    <Compile Include="Classes\MapLoader.cs" />
+    <Compile Include="Classes\MapWriter.cs" />
+    <Compile Include="Classes\XmlWriter.cs" />
+    <Compile Include="Custom Controls\NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Custom Controls\XNARenderer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Helpers\XNA Helpers\GraphicsDeviceControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Helpers\XNA Helpers\GraphicsDeviceService.cs" />
+    <Compile Include="Helpers\XNA Helpers\ServiceContainer.cs" />
+    <Compile Include="MainForm\EditBlock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\EditBlock.Designer.cs">
+      <DependentUpon>EditBlock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\EditChest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\EditChest.Designer.cs">
+      <DependentUpon>EditChest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\EditMonster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\EditMonster.Designer.cs">
+      <DependentUpon>EditMonster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\EditNPC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\EditNPC.Designer.cs">
+      <DependentUpon>EditNPC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\EditSwitches.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\EditSwitches.Designer.cs">
+      <DependentUpon>EditSwitches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\ManagePortals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\ManagePortals.Designer.cs">
+      <DependentUpon>ManagePortals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\Shapes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Classes\Tile.cs" />
+    <Compile Include="Classes\UndoRedo.cs" />
+    <Compile Include="Custom Controls\TilePalette.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Helpers\Deque.cs" />
+    <Compile Include="MainForm\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm\Rendering.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\MiscHelper.cs" />
+    <Compile Include="MainForm\Brushes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm\Toolbar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\ResizeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\ResizeForm.Designer.cs">
+      <DependentUpon>ResizeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainForm\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SubForms\TerrainDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\TerrainDialog.Designer.cs">
+      <DependentUpon>TerrainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms\TerrainEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\TerrainEditor.Designer.cs">
+      <DependentUpon>TerrainEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms\TextureGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\TextureGenerator.Designer.cs">
+      <DependentUpon>TextureGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms\TileSize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms\TileSize.Designer.cs">
+      <DependentUpon>TileSize.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Code Templates\Templates.txt" />
+    <None Include="readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\about_logo.PNG" />
+    <Content Include="Resources\BannerResize.png" />
+    <EmbeddedResource Include="MainForm\EditBlock.resx">
+      <DependentUpon>EditBlock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm\EditChest.resx">
+      <DependentUpon>EditChest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm\EditMonster.resx">
+      <DependentUpon>EditMonster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm\EditNPC.resx">
+      <DependentUpon>EditNPC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm\EditSwitches.resx">
+      <DependentUpon>EditSwitches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm\ManagePortals.resx">
+      <DependentUpon>ManagePortals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MarqueeEraser.cur" />
+    <EmbeddedResource Include="Resources\curMarqueeWalk.cur" />
+    <None Include="Resources\bluePortal.PNG" />
+    <None Include="Resources\chest16.png" />
+    <EmbeddedResource Include="Resources\chest32.png" />
+    <EmbeddedResource Include="Resources\block32.png" />
+    <EmbeddedResource Include="Resources\switch32.png" />
+    <Content Include="Resources\MarqueeEraser.png" />
+    <None Include="Resources\MarqueeWalk.png" />
+    <EmbeddedResource Include="Resources\MarqueeTerrain.cur" />
+    <Content Include="Resources\MarqueeTrn.PNG" />
+    <None Include="Resources\orangePortal.PNG" />
+    <None Include="Resources\npc16.png" />
+    <None Include="Resources\monster16.png" />
+    <EmbeddedResource Include="Resources\monster32.png" />
+    <EmbeddedResource Include="Resources\NPC32.png" />
+    <Content Include="Resources\TileSize.png" />
+    <Content Include="xna_map_editor.ico" />
+    <EmbeddedResource Include="Resources\white_default_tile.png" />
+    <None Include="Resources\AlignToGridHS.png" />
+    <None Include="Resources\BringForwardHS.png" />
+    <EmbeddedResource Include="Resources\BrushCursor.cur" />
+    <EmbeddedResource Include="Resources\BucketCursor.cur" />
+    <None Include="Resources\About.png" />
+    <None Include="Resources\ChooseColor.bmp" />
+    <None Include="Resources\DefaultBrush.png" />
+    <None Include="Resources\Color_fillHH.png" />
+    <None Include="Resources\Document.bmp" />
+    <None Include="Resources\Edit_RedoHS.png" />
+    <None Include="Resources\Edit_UndoHS.png" />
+    <None Include="Resources\Eraser.png" />
+    <EmbeddedResource Include="Resources\EraserCursor.cur" />
+    <None Include="Resources\FillDownHS.bmp" />
+    <None Include="Resources\FillDownHS.png" />
+    <None Include="Resources\FillUpHS.BMP" />
+    <None Include="Resources\FillUpHS.png" />
+    <None Include="Resources\Marquee.png" />
+    <EmbeddedResource Include="Resources\MarqueeCursor.cur" />
+    <None Include="Resources\NewDocument.bmp" />
+    <None Include="Resources\RulerHS.png" />
+    <None Include="Resources\Save.bmp" />
+    <None Include="Resources\XmlExport.png" />
+    <EmbeddedResource Include="Resources\WalkCursor.cur" />
+    <None Include="Resources\SendBackwardHS.png" />
+    <None Include="Resources\Visibility.png" />
+    <None Include="Resources\VSFolder_open.png" />
+    <None Include="Resources\walk.png" />
+    <None Include="XNA Map Editor_TemporaryKey.pfx" />
+    <EmbeddedResource Include="Resources\white_pixel.png" />
+    <EmbeddedResource Include="SubForms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\ResizeForm.resx">
+      <DependentUpon>ResizeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\TerrainDialog.resx">
+      <DependentUpon>TerrainDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\TerrainEditor.resx">
+      <DependentUpon>TerrainEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\TextureGenerator.resx">
+      <DependentUpon>TextureGenerator.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms\TileSize.resx">
+      <DependentUpon>TileSize.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
