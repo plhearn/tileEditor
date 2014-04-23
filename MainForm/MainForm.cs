@@ -1029,6 +1029,7 @@ namespace XNA_Map_Editor
             save_map_dialog                     = new SaveFileDialog();
             save_map_dialog.InitialDirectory    = Environment.CurrentDirectory + @"\Maps";
             save_map_dialog.Filter              = "XNA Map Editor TileMaps (*.xmap) | *.xmap";
+            //save_map_dialog.Filter              = "XNA Map Editor TileMaps (*.xml) | *.xml";
             save_map_dialog.Title               = "Save TileMap";
 
         }

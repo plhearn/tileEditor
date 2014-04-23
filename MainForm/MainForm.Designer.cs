@@ -133,7 +133,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1028, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1020, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -421,7 +421,7 @@
             this.toolbar_switch});
             this.toolbar.Location = new System.Drawing.Point(0, 24);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(1028, 25);
+            this.toolbar.Size = new System.Drawing.Size(1020, 25);
             this.toolbar.TabIndex = 8;
             this.toolbar.Text = "toolStrip1";
             // 
@@ -746,8 +746,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grp_tile_palette);
-            this.splitContainer1.Size = new System.Drawing.Size(1028, 652);
-            this.splitContainer1.SplitterDistance = 653;
+            this.splitContainer1.Size = new System.Drawing.Size(1020, 652);
+            this.splitContainer1.SplitterDistance = 647;
             this.splitContainer1.TabIndex = 9;
             // 
             // grp_tile_map
@@ -758,7 +758,7 @@
             this.grp_tile_map.Margin = new System.Windows.Forms.Padding(0);
             this.grp_tile_map.Name = "grp_tile_map";
             this.grp_tile_map.Padding = new System.Windows.Forms.Padding(0);
-            this.grp_tile_map.Size = new System.Drawing.Size(653, 652);
+            this.grp_tile_map.Size = new System.Drawing.Size(647, 652);
             this.grp_tile_map.TabIndex = 2;
             this.grp_tile_map.TabStop = false;
             // 
@@ -768,7 +768,7 @@
             this.pnl_tile_map.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_tile_map.Location = new System.Drawing.Point(0, 13);
             this.pnl_tile_map.Name = "pnl_tile_map";
-            this.pnl_tile_map.Size = new System.Drawing.Size(653, 639);
+            this.pnl_tile_map.Size = new System.Drawing.Size(647, 639);
             this.pnl_tile_map.TabIndex = 0;
             // 
             // tab_control
@@ -779,7 +779,7 @@
             this.tab_control.Location = new System.Drawing.Point(0, 0);
             this.tab_control.Name = "tab_control";
             this.tab_control.SelectedIndex = 0;
-            this.tab_control.Size = new System.Drawing.Size(653, 639);
+            this.tab_control.Size = new System.Drawing.Size(647, 639);
             this.tab_control.TabIndex = 7;
             this.tab_control.Click += new System.EventHandler(this.tab_control_Click);
             // 
@@ -792,7 +792,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(645, 613);
+            this.tabPage1.Size = new System.Drawing.Size(639, 613);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "MAP";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -803,7 +803,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.hscroll_xna.Location = new System.Drawing.Point(3, 596);
             this.hscroll_xna.Name = "hscroll_xna";
-            this.hscroll_xna.Size = new System.Drawing.Size(625, 17);
+            this.hscroll_xna.Size = new System.Drawing.Size(619, 17);
             this.hscroll_xna.TabIndex = 8;
             this.hscroll_xna.Visible = false;
             this.hscroll_xna.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hscroll_xna_Scroll);
@@ -811,7 +811,7 @@
             // pnl_scroll_filler
             // 
             this.pnl_scroll_filler.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnl_scroll_filler.Location = new System.Drawing.Point(625, 596);
+            this.pnl_scroll_filler.Location = new System.Drawing.Point(619, 596);
             this.pnl_scroll_filler.Name = "pnl_scroll_filler";
             this.pnl_scroll_filler.Size = new System.Drawing.Size(20, 17);
             this.pnl_scroll_filler.TabIndex = 5;
@@ -820,7 +820,7 @@
             // 
             this.vscroll_xna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.vscroll_xna.Location = new System.Drawing.Point(628, -3);
+            this.vscroll_xna.Location = new System.Drawing.Point(622, -3);
             this.vscroll_xna.Name = "vscroll_xna";
             this.vscroll_xna.Size = new System.Drawing.Size(17, 599);
             this.vscroll_xna.TabIndex = 4;
@@ -833,7 +833,7 @@
             this.xna_renderer.Location = new System.Drawing.Point(3, 3);
             this.xna_renderer.Margin = new System.Windows.Forms.Padding(0);
             this.xna_renderer.Name = "xna_renderer";
-            this.xna_renderer.Size = new System.Drawing.Size(639, 607);
+            this.xna_renderer.Size = new System.Drawing.Size(633, 607);
             this.xna_renderer.TabIndex = 7;
             this.xna_renderer.Text = "XNA Renderer";
             this.xna_renderer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.xna_renderer_MouseDown);
@@ -849,7 +849,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(645, 613);
+            this.tabPage2.Size = new System.Drawing.Size(639, 613);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "XML";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -863,7 +863,7 @@
             this.rch_txtbox.Margin = new System.Windows.Forms.Padding(0);
             this.rch_txtbox.Name = "rch_txtbox";
             this.rch_txtbox.ReadOnly = true;
-            this.rch_txtbox.Size = new System.Drawing.Size(639, 607);
+            this.rch_txtbox.Size = new System.Drawing.Size(633, 607);
             this.rch_txtbox.TabIndex = 0;
             this.rch_txtbox.Text = "";
             this.rch_txtbox.WordWrap = false;
@@ -874,7 +874,7 @@
             this.grp_tile_palette.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grp_tile_palette.Location = new System.Drawing.Point(0, 0);
             this.grp_tile_palette.Name = "grp_tile_palette";
-            this.grp_tile_palette.Size = new System.Drawing.Size(371, 652);
+            this.grp_tile_palette.Size = new System.Drawing.Size(369, 652);
             this.grp_tile_palette.TabIndex = 7;
             this.grp_tile_palette.TabStop = false;
             // 
@@ -885,14 +885,14 @@
             this.pnl_tile_palette.Location = new System.Drawing.Point(3, 16);
             this.pnl_tile_palette.Margin = new System.Windows.Forms.Padding(0);
             this.pnl_tile_palette.Name = "pnl_tile_palette";
-            this.pnl_tile_palette.Size = new System.Drawing.Size(365, 633);
+            this.pnl_tile_palette.Size = new System.Drawing.Size(363, 633);
             this.pnl_tile_palette.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 701);
+            this.ClientSize = new System.Drawing.Size(1020, 701);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolbar);
             this.Controls.Add(this.menuStrip1);

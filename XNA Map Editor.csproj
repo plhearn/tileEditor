@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Camera.cs" />
+    <Compile Include="Classes\TextureLoader.cs" />
     <Compile Include="Classes\FileFormat.cs" />
     <Compile Include="Classes\MapLoader.cs" />
     <Compile Include="Classes\MapWriter.cs" />

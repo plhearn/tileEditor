@@ -1,4 +1,7 @@
 Readme.txt
+
+A guy named EvilNando was working on a tile editor to make tile maps for the xna platform.  He eventually stopped working on the project and released the source. I've been adding different features to it. -plhearn
+
 ****************************************************************************
 XNA TILE MAP EDITOR
 

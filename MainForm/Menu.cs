@@ -143,6 +143,24 @@ namespace XNA_Map_Editor
                     // success
                     MessageBox.Show("TileMap saved successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
+                /*
+
+                StringBuilder sb = new StringBuilder();
+
+                    using (StreamReader sr = new StreamReader(save_map_dialog.FileName))
+                    {
+                        sb.AppendLine("= = = = = =");
+                        sb.Append(sr.ReadToEnd());
+                        sb.AppendLine();
+                        sb.AppendLine();
+                    }
+                using (StreamWriter outfile = new StreamWriter(save_map_dialog.FileName + @"\AllTxtFiles.txt"))
+                {
+                    outfile.Write(sb.ToString());
+                }
+                
+                */
             }
         }
 
@@ -167,8 +185,8 @@ namespace XNA_Map_Editor
                         return;
                     }
 
-                    Stream s = new MemoryStream(ASCIIEncoding.Default.GetBytes(GLB_Data.TextureFileName));
-                    GLB_Data.TilesTexture = Texture2D.FromStream(xna_renderer.GraphicsDevice, s);
+                    TextureLoader textureLoader = new TextureLoader(GraphicsDevice);
+                    GLB_Data.TilesTexture = textureLoader.FromFile(GLB_Data.TextureFileName);
                     tile_palette.SetImage(GLB_Data.TextureFileName, GLB_Data.TilePalette);
                     tile_palette.Invalidate();
 
