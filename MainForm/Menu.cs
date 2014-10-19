@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 // XNA Stuff
 
@@ -78,9 +79,11 @@ namespace XNA_Map_Editor
                     GLB_Data.TilesTexture.Dispose();
                 }
 
-                Stream s = new MemoryStream(ASCIIEncoding.Default.GetBytes(load_tiles_dialog.FileName));
-                GLB_Data.TilesTexture = Texture2D.FromStream(xna_renderer.GraphicsDevice, s);
                 GLB_Data.TextureFileName = load_tiles_dialog.FileName;
+
+                TextureLoader textureLoader = new TextureLoader(GraphicsDevice);
+                GLB_Data.TilesTexture = textureLoader.FromFile(GLB_Data.TextureFileName);
+
                 tile_palette.SetImage(load_tiles_dialog.FileName);
                 tile_palette.Invalidate();
 
@@ -138,29 +141,18 @@ namespace XNA_Map_Editor
                 // Save tile map data
                 MapWriter map_writer = new MapWriter();
 
+                /*
                 if (map_writer.WriteBinaryMap(save_map_dialog.FileName))
                 {
                     // success
                     MessageBox.Show("TileMap saved successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                /*
-
-                StringBuilder sb = new StringBuilder();
-
-                    using (StreamReader sr = new StreamReader(save_map_dialog.FileName))
-                    {
-                        sb.AppendLine("= = = = = =");
-                        sb.Append(sr.ReadToEnd());
-                        sb.AppendLine();
-                        sb.AppendLine();
-                    }
-                using (StreamWriter outfile = new StreamWriter(save_map_dialog.FileName + @"\AllTxtFiles.txt"))
-                {
-                    outfile.Write(sb.ToString());
-                }
-                
                 */
+
+                xml_writer.SaveMapXml(save_map_dialog.FileName);
+
+                MessageBox.Show("TileMap saved successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
             }
         }
 
@@ -174,10 +166,31 @@ namespace XNA_Map_Editor
                 // Load tile map data
                 MapLoader map_loader = new MapLoader();
 
-                GLB_Data.MapName = load_map_dialog.FileName.Replace(".xmap", "").Substring(load_map_dialog.FileName.Replace(".xmap", "").LastIndexOf("\\")+1);
+                GLB_Data.MapName = load_map_dialog.FileName.Replace(".xml", "").Substring(load_map_dialog.FileName.Replace(".xml", "").LastIndexOf("\\") + 1);
 
-                if (map_loader.LoadBinaryMap(load_map_dialog.FileName))
+                if(load_map_dialog.FileName.EndsWith(".xml"))
                 {
+                    XmlDocument xml = new XmlDocument();
+                    xml.Load(load_map_dialog.FileName);
+
+                    string outie = xml.OuterXml;
+
+                    int startIndex;
+                    int length;
+
+                    //Texture Name
+                    startIndex = outie.IndexOf("<TextureName>") + "<TextureName>".Length;
+                    length = outie.IndexOf("</TextureName>") - startIndex;
+
+                    GLB_Data.TextureFileName = outie.Substring(startIndex, length).Trim();
+
+                    TextureLoader textureLoader = new TextureLoader(GraphicsDevice);
+                    GLB_Data.TilesTexture = textureLoader.FromFile(GLB_Data.TextureFileName);
+                }
+
+                if (map_loader.LoadMapDataXML(load_map_dialog.FileName))
+                {
+
                     // success
                     if (GLB_Data.TextureFileName == null || GLB_Data.TextureFileName == "")
                     {
@@ -185,8 +198,6 @@ namespace XNA_Map_Editor
                         return;
                     }
 
-                    TextureLoader textureLoader = new TextureLoader(GraphicsDevice);
-                    GLB_Data.TilesTexture = textureLoader.FromFile(GLB_Data.TextureFileName);
                     tile_palette.SetImage(GLB_Data.TextureFileName, GLB_Data.TilePalette);
                     tile_palette.Invalidate();
 

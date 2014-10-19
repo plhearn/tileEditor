@@ -142,7 +142,6 @@ namespace XNA_Map_Editor
         public static string        MapName; 
         public static TileMapSize   MapSize; 
         public static Texture2D     TilesTexture;
-        public static Texture2D     WhitePixel;
 
         public static String        TextureFileName;
         public static Tile[,,]      TileMap;
@@ -172,7 +171,6 @@ namespace XNA_Map_Editor
     {
         public static TileMapSize MapSize;
         public static Texture2D TilesTexture;
-        public static Texture2D WhitePixel;
 
         public static String TextureFileName;
         public static Tile[, ,] TileMap;
@@ -1019,7 +1017,8 @@ namespace XNA_Map_Editor
         {
             load_map_dialog = new OpenFileDialog();
             load_map_dialog.InitialDirectory = Environment.CurrentDirectory + @"\Maps";
-            load_map_dialog.Filter = "XNA Map Editor TileMaps (*.xmap) | *.xmap";
+            //load_map_dialog.Filter = "XNA Map Editor TileMaps (*.xmap) | *.xmap";
+            load_map_dialog.Filter = "XNA Map Editor TileMaps (*.xml) | *.xml";
             load_map_dialog.Title = "Load TileMap";
 
         }
@@ -1028,8 +1027,8 @@ namespace XNA_Map_Editor
         {
             save_map_dialog                     = new SaveFileDialog();
             save_map_dialog.InitialDirectory    = Environment.CurrentDirectory + @"\Maps";
-            save_map_dialog.Filter              = "XNA Map Editor TileMaps (*.xmap) | *.xmap";
-            //save_map_dialog.Filter              = "XNA Map Editor TileMaps (*.xml) | *.xml";
+            //save_map_dialog.Filter              = "XNA Map Editor TileMaps (*.xmap) | *.xmap";
+            save_map_dialog.Filter              = "XNA Map Editor TileMaps (*.xml) | *.xml";
             save_map_dialog.Title               = "Save TileMap";
 
         }

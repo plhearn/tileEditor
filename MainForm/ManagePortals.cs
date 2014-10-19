@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 using System.IO;
 using System.Reflection;
@@ -207,7 +208,8 @@ namespace XNA_Map_Editor
         {
             load_map_dialog = new OpenFileDialog();
             load_map_dialog.InitialDirectory = Environment.CurrentDirectory + @"\Maps";
-            load_map_dialog.Filter = "XNA Map Editor TileMaps (*.xmap) | *.xmap";
+            //load_map_dialog.Filter = "XNA Map Editor TileMaps (*.xmap) | *.xmap";
+            load_map_dialog.Filter = "XNA Map Editor TileMaps (*.xml) | *.xml";
             load_map_dialog.Title = "Load TileMap";
 
             // Open load dialog
@@ -220,10 +222,36 @@ namespace XNA_Map_Editor
 
                 otherFileName = load_map_dialog.FileName;
 
+
+                XmlDocument xml = new XmlDocument();
+                xml.Load(otherFileName);
+
                 //chop off directory info
                 otherFileName = otherFileName.Substring(otherFileName.LastIndexOf("\\") + 1, otherFileName.LastIndexOf(".") - otherFileName.LastIndexOf("\\") - 1);
 
-                if (map_loader.LoadBinaryMapOther(load_map_dialog.FileName))
+                string outie = xml.OuterXml;
+
+                int startIndex;
+                int length;
+
+                //Texture Name
+                startIndex = outie.IndexOf("<TextureName>") + "<TextureName>".Length;
+                length = outie.IndexOf("</TextureName>") - startIndex;
+
+                GLB_Data_Other.TextureFileName = outie.Substring(startIndex, length).Trim();
+
+
+
+
+
+                using (FileStream stream = File.OpenRead(GLB_Data_Other.TextureFileName))
+                {
+                    GLB_Data_Other.TilesTexture = Texture2D.FromStream(xnaRenderer1.GraphicsDevice, stream);
+                }
+
+
+
+                if (map_loader.LoadMapDataXMLOther(load_map_dialog.FileName))
                 {
                     // success
                     if (GLB_Data_Other.TextureFileName == null || GLB_Data_Other.TextureFileName == "")
@@ -232,9 +260,6 @@ namespace XNA_Map_Editor
                         return;
                     }
 
-                    Stream s = new MemoryStream(ASCIIEncoding.Default.GetBytes(GLB_Data_Other.TextureFileName));
-                    GLB_Data_Other.TilesTexture = Texture2D.FromStream(xnaRenderer1.GraphicsDevice, s);
-                    
                     tile_palette.SetImage(GLB_Data_Other.TextureFileName, GLB_Data_Other.TilePalette);
                     tile_palette.Invalidate();
 

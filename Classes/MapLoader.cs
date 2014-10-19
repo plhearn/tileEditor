@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 // XNA
 using Microsoft.Xna.Framework.Graphics;
@@ -41,7 +42,7 @@ namespace XNA_Map_Editor.Classes
                 binary_formatter = new BinaryFormatter();
                 xmap             = new FileFormat();
 
-                return_value     = LoadMapData();
+                return_value     = LoadMapData(FileName);
             }
             catch (Exception e)
             {
@@ -62,9 +63,317 @@ namespace XNA_Map_Editor.Classes
             return return_value;
         }
 
-        private Boolean LoadMapData()
+        public Boolean LoadMapDataXML(string fileName)
         {
+
+            XmlDocument xml = new XmlDocument();
+            xml.Load(fileName);
+
+            string outie = xml.OuterXml;
+
+            int startIndex;
+            int length;
+            string[] split;
+
+            //Texture Name
+            startIndex = outie.IndexOf("<TextureName>") + "<TextureName>".Length;
+            length = outie.IndexOf("</TextureName>") - startIndex;
+
+            GLB_Data.TextureFileName = outie.Substring(startIndex, length).Trim();
+
             
+            //map dimensions
+            startIndex = outie.IndexOf("<MapDimensions>") + "<MapDimensions>".Length;
+            length = outie.IndexOf("</MapDimensions>") - startIndex;
+
+            split = outie.Substring(startIndex, length).Split(' ');
+
+            int.TryParse(split[0], out GLB_Data.MapSize.Width);
+            int.TryParse(split[1], out GLB_Data.MapSize.Height);
+            
+
+            //tile size
+            startIndex = outie.IndexOf("<TileSize>") + "<TileSize>".Length;
+            length = outie.IndexOf("</TileSize>") - startIndex;
+
+            split = outie.Substring(startIndex, length).Split(' ');
+
+            int.TryParse(split[0], out GLB_Data.MapSize.TileSize);
+
+            xmap = new FileFormat();
+
+            xmap.texture_file_name = GLB_Data.TextureFileName;
+
+            xmap.texture_dimensions.X = GLB_Data.TilesTexture.Width;
+            xmap.texture_dimensions.Y = GLB_Data.TilesTexture.Height;
+
+            xmap.map_dimensions.Width = GLB_Data.MapSize.Width;
+            xmap.map_dimensions.Height = GLB_Data.MapSize.Height;
+            xmap.map_dimensions.Depth = 4;
+            xmap.map_dimensions.TileSize = GLB_Data.MapSize.TileSize;
+
+            if(CheckTileTexture(ref xmap.texture_file_name, true))
+            {
+                //map name
+                startIndex = outie.IndexOf("<Name>") + "<Name>".Length;
+                length = outie.IndexOf("</Name>") - startIndex;
+
+                GLB_Data.MapName = outie.Substring(startIndex, length).Trim();
+
+
+                // palette
+
+                Tile t;
+
+                int x = GLB_Data.TilesTexture.Width / GLB_Data.MapSize.TileSize;
+                int y = GLB_Data.TilesTexture.Height / GLB_Data.MapSize.TileSize;
+
+                int index = 1;
+                GLB_Data.TilePalette = new Tile[x, y];
+
+                for (int j = 0; j < y; j++)
+                {
+                    for (int i = 0; i < x; i++)
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = i;
+                        t.grid_location.Y = j;
+
+                        t.id = index;
+                        index++;
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = 0;
+                        t.texture_location.Y = 0;
+                        t.walkable = true;
+
+                        GLB_Data.TilePalette[i, j] = t;
+                    }
+                }
+
+
+                char[] splitChars = new char[3];
+                splitChars[0] = ' ';
+                splitChars[1] = '\n';
+                splitChars[2] = '\r';
+
+                GLB_Data.TileMap = new Tile[4, GLB_Data.MapSize.Width, GLB_Data.MapSize.Height];
+
+
+                //BaseLayer
+                startIndex = outie.IndexOf("<BaseLayer>") + "<BaseLayer>".Length;
+                length = outie.IndexOf("</BaseLayer>") - startIndex;
+
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach(string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = int.Parse(s);
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = (t.id-1) % (GLB_Data.TilesTexture.Width / GLB_Data.MapSize.TileSize);
+                        t.texture_location.Y = (t.id-1) / (GLB_Data.TilesTexture.Width / GLB_Data.MapSize.TileSize);
+                        t.walkable = false;
+
+                        GLB_Data.TileMap[0, x, y] = t;
+                        
+                        x++;
+
+                        if(x > GLB_Data.MapSize.Width-1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+                //Tile d = GLB_Data.TileMap[0, 58, 79];
+                //Tile f = GLB_Data.TileMap[0, 59, 79];
+
+                //FringeLayer
+                startIndex = outie.IndexOf("<FringeLayer>") + "<FringeLayer>".Length;
+                length = outie.IndexOf("</FringeLayer>") - startIndex;
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach (string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = int.Parse(s);
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = (t.id - 1) % (GLB_Data.TilesTexture.Width / GLB_Data.MapSize.TileSize);
+                        t.texture_location.Y = (t.id - 1) / (GLB_Data.TilesTexture.Width / GLB_Data.MapSize.TileSize);
+                        t.walkable = false;
+
+                        GLB_Data.TileMap[1, x, y] = t;
+
+                        x++;
+
+                        if (x > GLB_Data.MapSize.Width - 1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+
+                //ObjectLayer
+                startIndex = outie.IndexOf("<ObjectLayer>") + "<ObjectLayer>".Length;
+                length = outie.IndexOf("</ObjectLayer>") - startIndex;
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach (string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = int.Parse(s);
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = (t.id - 1) % (GLB_Data.TilesTexture.Width / GLB_Data.MapSize.TileSize);
+                        t.texture_location.Y = (t.id - 1) / (GLB_Data.TilesTexture.Width / GLB_Data.MapSize.TileSize);
+                        t.walkable = false;
+
+                        GLB_Data.TileMap[2, x, y] = t;
+
+                        x++;
+
+                        if (x > GLB_Data.MapSize.Width - 1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+
+                //CollisionLayer
+                startIndex = outie.IndexOf("<CollisionLayer>") + "<CollisionLayer>".Length;
+                length = outie.IndexOf("</CollisionLayer>") - startIndex;
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach (string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = -1;
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = 0;
+                        t.texture_location.Y = 0;
+
+                        bool walk = false;
+
+                        if (int.Parse(s) == 0)
+                            walk = true;
+
+                        t.walkable = walk;
+
+                        GLB_Data.TileMap[3, x, y] = t;
+
+                        x++;
+
+                        if (x > GLB_Data.MapSize.Width - 1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+                GLB_Data.portals = xmap.portals;
+                if (GLB_Data.portals == null)
+                    GLB_Data.portals = new List<Portal>();
+
+                GLB_Data.portalIndex = xmap.portalIndex;
+
+                GLB_Data.destinations = xmap.destinations;
+                if (GLB_Data.destinations == null)
+                    GLB_Data.destinations = new List<PortalDestination>();
+
+                GLB_Data.chests = xmap.chests;
+                if (GLB_Data.chests == null)
+                    GLB_Data.chests = new List<Chest>();
+
+                GLB_Data.npcs = xmap.npcs;
+                if (GLB_Data.npcs == null)
+                    GLB_Data.npcs = new List<NPC>();
+
+                GLB_Data.fixedCombatNPCs = xmap.fixedCombatNPCs;
+                if (GLB_Data.fixedCombatNPCs == null)
+                    GLB_Data.fixedCombatNPCs = new List<FixedCombatNPC>();
+
+                GLB_Data.blocks = xmap.blocks;
+                if (GLB_Data.blocks == null)
+                    GLB_Data.blocks = new List<Block>();
+
+                GLB_Data.switches = xmap.switches;
+                if (GLB_Data.switches == null)
+                    GLB_Data.switches = new List<Switch>();
+
+
+                xmap.tile_map = GLB_Data.TileMap;
+                xmap.tile_palette = GLB_Data.TilePalette;
+
+
+
+                return true;
+            }
+
+            return false;
+
+        }
+
+        private Boolean LoadMapData(string fileName)
+        {
             xmap = (FileFormat)binary_formatter.Deserialize(file_stream);
 
             if (xmap.texture_file_name == "")
@@ -262,6 +571,10 @@ namespace XNA_Map_Editor.Classes
 
                         CheckTileTexture(ref TextureFile, false);
                     }
+                    else
+                    {
+                        return_value = true;
+                    }
                 }
                 else
                 {
@@ -367,5 +680,293 @@ namespace XNA_Map_Editor.Classes
             #endregion
         }
 
+
+
+
+        public Boolean LoadMapDataXMLOther(string fileName)
+        {
+
+            XmlDocument xml = new XmlDocument();
+            xml.Load(fileName);
+
+            string outie = xml.OuterXml;
+
+            int startIndex;
+            int length;
+            string[] split;
+
+            //Texture Name
+            startIndex = outie.IndexOf("<TextureName>") + "<TextureName>".Length;
+            length = outie.IndexOf("</TextureName>") - startIndex;
+
+            GLB_Data_Other.TextureFileName = outie.Substring(startIndex, length).Trim();
+
+
+
+            //map dimensions
+            startIndex = outie.IndexOf("<MapDimensions>") + "<MapDimensions>".Length;
+            length = outie.IndexOf("</MapDimensions>") - startIndex;
+
+            split = outie.Substring(startIndex, length).Split(' ');
+
+            int.TryParse(split[0], out GLB_Data_Other.MapSize.Width);
+            int.TryParse(split[1], out GLB_Data_Other.MapSize.Height);
+
+
+            //tile size
+            startIndex = outie.IndexOf("<TileSize>") + "<TileSize>".Length;
+            length = outie.IndexOf("</TileSize>") - startIndex;
+
+            split = outie.Substring(startIndex, length).Split(' ');
+
+            int.TryParse(split[0], out GLB_Data_Other.MapSize.TileSize);
+
+            xmap = new FileFormat();
+
+            xmap.texture_file_name = GLB_Data_Other.TextureFileName;
+
+            xmap.texture_dimensions.X = GLB_Data_Other.TilesTexture.Width;
+            xmap.texture_dimensions.Y = GLB_Data_Other.TilesTexture.Height;
+
+            xmap.map_dimensions.Width = GLB_Data_Other.MapSize.Width;
+            xmap.map_dimensions.Height = GLB_Data_Other.MapSize.Height;
+            xmap.map_dimensions.Depth = 4;
+            xmap.map_dimensions.TileSize = GLB_Data_Other.MapSize.TileSize;
+
+            if (CheckTileTexture(ref xmap.texture_file_name, true))
+            {
+                //map name
+                startIndex = outie.IndexOf("<Name>") + "<Name>".Length;
+                length = outie.IndexOf("</Name>") - startIndex;
+
+                //GLB_Data_Other.MapName = outie.Substring(startIndex, length).Trim();
+
+
+                // palette
+
+                Tile t;
+
+                int x = GLB_Data_Other.TilesTexture.Width / GLB_Data_Other.MapSize.TileSize;
+                int y = GLB_Data_Other.TilesTexture.Height / GLB_Data_Other.MapSize.TileSize;
+
+                int index = 1;
+                GLB_Data_Other.TilePalette = new Tile[x, y];
+
+                for (int j = 0; j < y; j++)
+                {
+                    for (int i = 0; i < x; i++)
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = i;
+                        t.grid_location.Y = j;
+
+                        t.id = index;
+                        index++;
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = 0;
+                        t.texture_location.Y = 0;
+                        t.walkable = true;
+
+                        GLB_Data_Other.TilePalette[i, j] = t;
+                    }
+                }
+
+
+                char[] splitChars = new char[3];
+                splitChars[0] = ' ';
+                splitChars[1] = '\n';
+                splitChars[2] = '\r';
+
+                GLB_Data_Other.TileMap = new Tile[4, GLB_Data_Other.MapSize.Width, GLB_Data_Other.MapSize.Height];
+
+
+                //BaseLayer
+                startIndex = outie.IndexOf("<BaseLayer>") + "<BaseLayer>".Length;
+                length = outie.IndexOf("</BaseLayer>") - startIndex;
+
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach (string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = int.Parse(s);
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = (t.id - 1) % (GLB_Data_Other.TilesTexture.Width / GLB_Data_Other.MapSize.TileSize);
+                        t.texture_location.Y = (t.id - 1) / (GLB_Data_Other.TilesTexture.Width / GLB_Data_Other.MapSize.TileSize);
+                        t.walkable = false;
+
+                        GLB_Data_Other.TileMap[0, x, y] = t;
+
+                        x++;
+
+                        if (x > GLB_Data_Other.MapSize.Width - 1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+                //Tile d = GLB_Data_Other.TileMap[0, 58, 79];
+                //Tile f = GLB_Data_Other.TileMap[0, 59, 79];
+
+                //FringeLayer
+                startIndex = outie.IndexOf("<FringeLayer>") + "<FringeLayer>".Length;
+                length = outie.IndexOf("</FringeLayer>") - startIndex;
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach (string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = int.Parse(s);
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = (t.id - 1) % (GLB_Data_Other.TilesTexture.Width / GLB_Data_Other.MapSize.TileSize);
+                        t.texture_location.Y = (t.id - 1) / (GLB_Data_Other.TilesTexture.Width / GLB_Data_Other.MapSize.TileSize);
+                        t.walkable = false;
+
+                        GLB_Data_Other.TileMap[1, x, y] = t;
+
+                        x++;
+
+                        if (x > GLB_Data_Other.MapSize.Width - 1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+
+                //ObjectLayer
+                startIndex = outie.IndexOf("<ObjectLayer>") + "<ObjectLayer>".Length;
+                length = outie.IndexOf("</ObjectLayer>") - startIndex;
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach (string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = int.Parse(s);
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = (t.id - 1) % (GLB_Data_Other.TilesTexture.Width / GLB_Data_Other.MapSize.TileSize);
+                        t.texture_location.Y = (t.id - 1) / (GLB_Data_Other.TilesTexture.Width / GLB_Data_Other.MapSize.TileSize);
+                        t.walkable = false;
+
+                        GLB_Data_Other.TileMap[2, x, y] = t;
+
+                        x++;
+
+                        if (x > GLB_Data_Other.MapSize.Width - 1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+
+                //CollisionLayer
+                startIndex = outie.IndexOf("<CollisionLayer>") + "<CollisionLayer>".Length;
+                length = outie.IndexOf("</CollisionLayer>") - startIndex;
+
+                split = outie.Substring(startIndex, length).Split(splitChars);
+
+                x = 0;
+                y = 0;
+
+                foreach (string s in split)
+                {
+                    if (s != "")
+                    {
+                        t = new Tile();
+
+                        t.grid_location.X = x;
+                        t.grid_location.Y = y;
+
+                        t.id = -1;
+
+                        t.terrain_type = 0;
+                        t.texture_location.X = 0;
+                        t.texture_location.Y = 0;
+
+                        bool walk = false;
+
+                        if (int.Parse(s) == 0)
+                            walk = true;
+
+                        t.walkable = walk;
+
+                        GLB_Data_Other.TileMap[3, x, y] = t;
+
+                        x++;
+
+                        if (x > GLB_Data_Other.MapSize.Width - 1)
+                        {
+                            x = 0;
+                            y++;
+                        }
+                    }
+
+                }
+
+
+                GLB_Data_Other.portals = xmap.portals;
+                if (GLB_Data_Other.portals == null)
+                    GLB_Data_Other.portals = new List<Portal>();
+
+                GLB_Data_Other.portalIndex = xmap.portalIndex;
+
+
+                xmap.tile_map = GLB_Data_Other.TileMap;
+                xmap.tile_palette = GLB_Data_Other.TilePalette;
+
+
+
+                return true;
+            }
+
+            return false;
+
+        }
     }
 }

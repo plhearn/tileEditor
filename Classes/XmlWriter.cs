@@ -76,6 +76,34 @@ namespace XNA_Map_Editor.Classes
             memory_stream.Close();
         }
 
+        internal void SaveMapXml(string FileName)
+        {
+            //if (memory_stream == null)
+            {
+                this.CreateXmlDocument();
+
+                byte[] byte_array = new byte[memory_stream.Length];
+                memory_stream.Read(byte_array, 0, (int)memory_stream.Length);
+
+                String aux_string = Encoding.UTF8.GetString(byte_array);
+                String[] lines = aux_string.Split(Convert.ToChar("\n"));
+
+                // Format and save the text
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine(getXmlText(lines));
+
+                using (StreamWriter outfile = new StreamWriter(FileName))
+                {
+                    outfile.Write(sb.ToString());
+                }
+
+
+            }
+
+            memory_stream.Close();
+        }
+
         #endregion
 
         #region Private Methods
@@ -124,7 +152,7 @@ namespace XNA_Map_Editor.Classes
                 else
                 {
                     string texName = GLB_Data.TextureFileName.Substring(GLB_Data.TextureFileName.LastIndexOf("\\")+1, GLB_Data.TextureFileName.LastIndexOf('.') - GLB_Data.TextureFileName.LastIndexOf("\\") - 1);
-                    xml_text_writer.WriteElementString("TextureName", texName + "64");
+                    xml_text_writer.WriteElementString("TextureName", texName);
                     //xml_text_writer.WriteElementString("Width", GLB_Data.TilesTexture.Width.ToString());
                     //xml_text_writer.WriteElementString("Height", GLB_Data.TilesTexture.Height.ToString());
                 }
@@ -469,7 +497,44 @@ namespace XNA_Map_Editor.Classes
             }
 
             parent_form.rch_txtbox.Text = buffer;
-        }        
+        }
+
+        private string getXmlText(string[] XmlText)
+        {
+            int line_count = 0;
+
+            // dynamic line numbering
+            String buffer = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+
+            bool skipFirstLine = true;
+
+            foreach (String line in XmlText)
+            {
+                String numbering = line_count.ToString();
+
+                for (int x = 0; x < XmlText.GetLength(0).ToString().Length; x++)
+                {
+                    numbering += " ";
+                }
+
+                //buffer += numbering + " " + line;
+
+                //first like is wack and indents weirdly which screws up the xml.  
+                //instead we init the buffer to the first line and skip writing the first line
+                if (skipFirstLine)
+                {
+                    skipFirstLine = false;
+                }
+                else
+                {
+                    buffer += line;
+                }
+
+                line_count++;
+            }
+
+            return buffer;
+        }
 
         #endregion
     }
