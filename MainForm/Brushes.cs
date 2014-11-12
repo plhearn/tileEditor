@@ -177,7 +177,7 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
-                    ShowTerrainTypes = true;
+                    ShowTerrainTypes = false;
                     break;
 
                 case PaintTool.Portal:
@@ -196,7 +196,7 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
-                    ShowTerrainTypes = true;
+                    ShowTerrainTypes = false;
                     break;
 
                 case PaintTool.Chest:
@@ -215,7 +215,7 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
-                    ShowTerrainTypes = true;
+                    ShowTerrainTypes = false;
                     break;
 
                 case PaintTool.NPC:
@@ -234,7 +234,7 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
-                    ShowTerrainTypes = true;
+                    ShowTerrainTypes = false;
                     break;
 
                 case PaintTool.FixedCombat:
@@ -253,7 +253,7 @@ namespace XNA_Map_Editor
                     toolbar_NPC.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
-                    ShowTerrainTypes = true;
+                    ShowTerrainTypes = false;
                     break;
 
 
@@ -273,7 +273,7 @@ namespace XNA_Map_Editor
                     toolbar_chest.CheckState = CheckState.Unchecked;
                     toolbar_NPC.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
-                    ShowTerrainTypes = true;
+                    ShowTerrainTypes = false;
                     break;
 
 
@@ -293,7 +293,7 @@ namespace XNA_Map_Editor
                     toolbar_chest.CheckState = CheckState.Unchecked;
                     toolbar_NPC.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
-                    ShowTerrainTypes = true;
+                    ShowTerrainTypes = false;
                     break;
 
 
