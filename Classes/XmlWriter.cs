@@ -138,7 +138,7 @@ namespace XNA_Map_Editor.Classes
             {
                 xml_text_writer.WriteElementString("Name", GLB_Data.MapName);
                 xml_text_writer.WriteElementString("MapDimensions", GLB_Data.MapSize.Width.ToString() + " " + GLB_Data.MapSize.Height.ToString());
-                xml_text_writer.WriteElementString("TileSize", "64 64");  //GLB_Data.MapSize.TileSize.ToString() + " " + GLB_Data.MapSize.TileSize.ToString());
+                xml_text_writer.WriteElementString("TileSize", GLB_Data.MapSize.TileSize.ToString() + " " + GLB_Data.MapSize.TileSize.ToString());
                 xml_text_writer.WriteElementString("SpawnMapPosition", "10 10");
                 
 
@@ -151,7 +151,7 @@ namespace XNA_Map_Editor.Classes
                 }
                 else
                 {
-                    string texName = GLB_Data.TextureFileName.Substring(GLB_Data.TextureFileName.LastIndexOf("\\")+1, GLB_Data.TextureFileName.LastIndexOf('.') - GLB_Data.TextureFileName.LastIndexOf("\\") - 1);
+                    string texName = GLB_Data.TextureFileName;
                     xml_text_writer.WriteElementString("TextureName", texName);
                     //xml_text_writer.WriteElementString("Width", GLB_Data.TilesTexture.Width.ToString());
                     //xml_text_writer.WriteElementString("Height", GLB_Data.TilesTexture.Height.ToString());
@@ -404,7 +404,7 @@ namespace XNA_Map_Editor.Classes
             {
                 xml_text_writer.WriteStartElement("Item");
                 xml_text_writer.WriteElementString("ContentName", npc.name);
-                xml_text_writer.WriteElementString("MapPosition", npc.x + " " + npc.y);
+                xml_text_writer.WriteElementString("MapPosition", (npc.x+1) + " " + (npc.y+1));
                 xml_text_writer.WriteEndElement();
             }
 
