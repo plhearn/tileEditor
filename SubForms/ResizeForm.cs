@@ -102,7 +102,7 @@ namespace XNA_Map_Editor.SubForms
                 for (int id_x = 0; id_x < GLB_Data.MapSize.Width; id_x++)
                 {
                     aux_walk_layer[id_x, id_y].walkable = GLB_Data.TileMap[GLB_Data.MapSize.Depth, id_x, id_y].walkable;
-                    aux_terrain_layer[id_x, id_y] = GLB_Data.TerrainLayout[id_x, id_y];
+                    //aux_terrain_layer[id_x, id_y] = GLB_Data.TerrainLayout[id_x, id_y];
                 }
             }
 

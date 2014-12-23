@@ -376,6 +376,20 @@ namespace XNA_Map_Editor.Classes
 
 
 
+            xml_text_writer.WriteStartElement("lightsources");
+
+            xml_text_writer.WriteString(Environment.NewLine + "0,0, 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181,player" + Environment.NewLine);
+
+            foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
+            {
+                xml_text_writer.WriteString((combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
+
+            }
+
+            xml_text_writer.WriteEndElement();
+
+
+
             xml_text_writer.WriteStartElement("RandomCombat");
 
             xml_text_writer.WriteElementString("CombatProbability", "0");
@@ -428,7 +442,6 @@ namespace XNA_Map_Editor.Classes
             }
 
             xml_text_writer.WriteEndElement();
-
 
 
             xml_text_writer.WriteStartElement("SwitchEntries");
