@@ -152,7 +152,8 @@ namespace XNA_Map_Editor
             DrawMap();
 
             // Draw Walk Layer
-            DrawWalkLayer();
+            if (GLB_Data.Brush == PaintTool.MarqueeWalk)
+                DrawWalkLayer();
 
             // Draw Portals
             DrawPortals();
@@ -244,7 +245,9 @@ namespace XNA_Map_Editor
                             continue;
                         }
 
-                        if (!GLB_Data.TileMap[walk_layer, id_x, id_y].walkable)
+                        if(GLB_Data.TileMap[walk_layer, id_x, id_y].terrain_type == 2)
+                            sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(id_x * Camera.ScaledTileSize, id_y * Camera.ScaledTileSize, Camera.ScaledTileSize, Camera.ScaledTileSize)), new XNA.Color(0, 255, 0, AlphaValue));
+                        else if (!GLB_Data.TileMap[walk_layer, id_x, id_y].walkable)
                         {
                             // ORIGINAL RENDER CALL
                             sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(id_x * Camera.ScaledTileSize, id_y * Camera.ScaledTileSize, Camera.ScaledTileSize, Camera.ScaledTileSize)), new XNA.Color(255, 0, 0, AlphaValue));

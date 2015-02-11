@@ -493,6 +493,12 @@ namespace XNA_Map_Editor
                         {
                             GLB_Data.TileMap[GetWalkLayer(), offset_x, offset_y].walkable = true;
                         }
+
+
+                        if ((Control.ModifierKeys & System.Windows.Forms.Keys.Shift) != 0)
+                            GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 2;
+                        else
+                            GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 0;
                     }
                 }
             }
@@ -601,6 +607,11 @@ namespace XNA_Map_Editor
                 {
                     GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].walkable = true;
                 }
+
+                if ((Control.ModifierKeys & System.Windows.Forms.Keys.Shift) != 0)
+                    GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 2;
+                else
+                    GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 0;
             }
         }
 

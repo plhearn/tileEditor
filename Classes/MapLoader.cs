@@ -313,6 +313,9 @@ namespace XNA_Map_Editor.Classes
                         if (int.Parse(s) == 0)
                             walk = true;
 
+                        if (int.Parse(s) == 2)
+                            t.terrain_type = 2;
+
                         t.walkable = walk;
 
                         GLB_Data.TileMap[3, x, y] = t;
@@ -933,6 +936,9 @@ namespace XNA_Map_Editor.Classes
 
                         if (int.Parse(s) == 0)
                             walk = true;
+
+                        if (int.Parse(s) == 2)
+                            t.terrain_type = 2;
 
                         t.walkable = walk;
 

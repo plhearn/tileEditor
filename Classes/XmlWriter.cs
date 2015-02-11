@@ -250,6 +250,9 @@ namespace XNA_Map_Editor.Classes
                         for (int id_x = 0; id_x < GLB_Data.MapSize.Width; id_x++)
                         {
                             aux_tile_row[id_x] = Convert.ToInt32(GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].walkable);
+
+                            if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].terrain_type == 2)
+                                aux_tile_row[id_x] = 2;
                         }
 
                         // write row
@@ -374,6 +377,19 @@ namespace XNA_Map_Editor.Classes
 
             xml_text_writer.WriteEndElement();
 
+            xml_text_writer.WriteStartElement("lightsources");
+
+            /*
+
+            xml_text_writer.WriteString(Environment.NewLine + "0,0, 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181,player" + Environment.NewLine);
+
+            foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
+            {
+                xml_text_writer.WriteString((combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
+
+            }
+
+
 
 
             xml_text_writer.WriteStartElement("lightsources");
@@ -385,8 +401,28 @@ namespace XNA_Map_Editor.Classes
                 xml_text_writer.WriteString((combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
 
             }
+            */
 
             xml_text_writer.WriteEndElement();
+
+
+
+
+
+            xml_text_writer.WriteStartElement("enemies");
+
+            xml_text_writer.WriteString(Environment.NewLine);
+
+            foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
+            {
+                xml_text_writer.WriteString("hopper, " + (combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + Environment.NewLine);
+
+            }
+
+
+            xml_text_writer.WriteEndElement();
+
+
 
 
 

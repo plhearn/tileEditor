@@ -168,7 +168,10 @@ namespace XNA_Map_Editor
                         else
                         {
                             // Render Normally
-                            sprite_batch.Draw(GLB_Data_Other.TilesTexture, dest_rectangle, source_rectangle, XNA.Color.White);
+                            if (GLB_Data_Other.TileMap[id_z, id_x, id_y].terrain_type == 2)
+                                sprite_batch.Draw(GLB_Data_Other.TilesTexture, dest_rectangle, source_rectangle, XNA.Color.GreenYellow);
+                            else
+                                sprite_batch.Draw(GLB_Data_Other.TilesTexture, dest_rectangle, source_rectangle, XNA.Color.White);
                         }
 
                     }
