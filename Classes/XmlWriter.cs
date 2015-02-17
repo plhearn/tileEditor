@@ -50,7 +50,7 @@ namespace XNA_Map_Editor.Classes
                 // Save XML file, encoding null == UTF-8 which is what we use for creating xml
                 XmlTextWriter xml_to_file = new XmlTextWriter(save_xml_dialog.FileName, null);
 
-                this.CreateXmlDocument(xml_to_file, false);
+                this.CreateXmlDocument(xml_to_file, false, save_xml_dialog.FileName);
 
                 //MessageBox.Show("Export Completed!", "XML Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -80,7 +80,7 @@ namespace XNA_Map_Editor.Classes
         {
             //if (memory_stream == null)
             {
-                this.CreateXmlDocument();
+                this.CreateXmlDocument(FileName);
 
                 byte[] byte_array = new byte[memory_stream.Length];
                 memory_stream.Read(byte_array, 0, (int)memory_stream.Length);
@@ -108,12 +108,12 @@ namespace XNA_Map_Editor.Classes
 
         #region Private Methods
 
-        private void CreateXmlDocument()
+        private void CreateXmlDocument(string fileName="map")
         {
-            CreateXmlDocument(this.xml_text_writer, true);
+            CreateXmlDocument(this.xml_text_writer, true, fileName);
         }
 
-        private void CreateXmlDocument(XmlTextWriter Writer, Boolean UsingStream)
+        private void CreateXmlDocument(XmlTextWriter Writer, Boolean UsingStream, string fileName)
         {
             if (UsingStream)
             {
@@ -134,9 +134,9 @@ namespace XNA_Map_Editor.Classes
             xml_text_writer.WriteStartAttribute("Type");
             xml_text_writer.WriteString("RolePlayingGameData.Map");
             xml_text_writer.WriteEndAttribute();
-
+            
             {
-                xml_text_writer.WriteElementString("Name", GLB_Data.MapName);
+                xml_text_writer.WriteElementString("Name", fileName);
                 xml_text_writer.WriteElementString("MapDimensions", GLB_Data.MapSize.Width.ToString() + " " + GLB_Data.MapSize.Height.ToString());
                 xml_text_writer.WriteElementString("TileSize", GLB_Data.MapSize.TileSize.ToString() + " " + GLB_Data.MapSize.TileSize.ToString());
                 xml_text_writer.WriteElementString("SpawnMapPosition", "10 10");
