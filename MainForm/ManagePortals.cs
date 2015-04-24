@@ -89,7 +89,7 @@ namespace XNA_Map_Editor
 
             parentForm = mainForm;
 
-            this.xnaRenderer1.OnDraw = new EventHandler(XnaRender);
+            this.xnaRenderer1.OnDraw += new EventHandler(XnaRender);
 
             this.sprite_batch = new SpriteBatch(gfx);
 
@@ -122,9 +122,13 @@ namespace XNA_Map_Editor
         }
 
 
-        void XnaRender(object sender, EventArgs e)
+        public void XnaRender(object sender, EventArgs e)
         {
             xnaRenderer1.GraphicsDevice.Clear(XNA.Color.CornflowerBlue);
+
+            InitScrollBars();
+
+            Camera.Scroll(0, 0, xnaRenderer1.Width, xnaRenderer1.Height);
 
             //BEGIN
             sprite_batch.Begin();
@@ -145,7 +149,7 @@ namespace XNA_Map_Editor
                                                                            GLB_Data_Other.TileMap[id_z, id_x, id_y].texture_location.Y * GLB_Data_Other.MapSize.TileSize,
                                                                            GLB_Data_Other.MapSize.TileSize, GLB_Data_Other.MapSize.TileSize);
 
-                        XNA.Rectangle dest_rectangle = Camera.Transform(new XNA.Rectangle(id_x * Camera.ScaledTileSize, id_y * Camera.ScaledTileSize, Camera.ScaledTileSize, Camera.ScaledTileSize));
+                        XNA.Rectangle dest_rectangle = Camera.Transform(new XNA.Rectangle(id_x * Camera.ScaledTileSizeOther, id_y * Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther));
 
                         if (MapFrustrumCull(id_x, id_y))
                         {
@@ -183,12 +187,12 @@ namespace XNA_Map_Editor
             {
                 foreach (Portal portal in GLB_Data_Other.portals)
                 {
-                    sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(portal.x * Camera.ScaledTileSize, portal.y * Camera.ScaledTileSize, Camera.ScaledTileSize, Camera.ScaledTileSize)), new XNA.Color(0, 0, 255, 98));
+                    sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(portal.x * Camera.ScaledTileSizeOther, portal.y * Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther)), new XNA.Color(0, 0, 255, 98));
                 }
             }
 
-            sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(selectedLandingSpot.X * Camera.ScaledTileSize, selectedLandingSpot.Y * Camera.ScaledTileSize, Camera.ScaledTileSize, Camera.ScaledTileSize)), new XNA.Color(255, 0, 255, 98));
-            sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(selectedPortal.x * Camera.ScaledTileSize, selectedPortal.y * Camera.ScaledTileSize, Camera.ScaledTileSize, Camera.ScaledTileSize)), new XNA.Color(0, 225, 0, 98));
+            sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(selectedLandingSpot.X * Camera.ScaledTileSizeOther, selectedLandingSpot.Y * Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther)), new XNA.Color(255, 0, 255, 98));
+            sprite_batch.Draw(grid_texture, Camera.Transform(new XNA.Rectangle(selectedPortal.x * Camera.ScaledTileSizeOther, selectedPortal.y * Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther, Camera.ScaledTileSizeOther)), new XNA.Color(0, 225, 0, 98));
 
             //END
             sprite_batch.End();
@@ -199,7 +203,7 @@ namespace XNA_Map_Editor
 
         private Boolean MapFrustrumCull(int id_x, int id_y)
         {
-            if (!new XNA.Rectangle((int)Camera.X * -1 - Camera.ScaledTileSize, (int)Camera.Y * -1 - Camera.ScaledTileSize, xnaRenderer1.Width + Camera.ScaledTileSize, xnaRenderer1.Height + Camera.ScaledTileSize).Contains(new XNA.Point(id_x * Camera.ScaledTileSize, id_y * Camera.ScaledTileSize)))
+            if (!new XNA.Rectangle((int)Camera.X * -1 - Camera.ScaledTileSizeOther, (int)Camera.Y * -1 - Camera.ScaledTileSizeOther, xnaRenderer1.Width + Camera.ScaledTileSizeOther, xnaRenderer1.Height + Camera.ScaledTileSizeOther).Contains(new XNA.Point(id_x * Camera.ScaledTileSizeOther, id_y * Camera.ScaledTileSizeOther)))
             {
                 return true;
             }
@@ -263,7 +267,7 @@ namespace XNA_Map_Editor
                         return;
                     }
 
-                    tile_palette.SetImage(GLB_Data_Other.TextureFileName, GLB_Data_Other.TilePalette);
+                    //tile_palette.SetImage(GLB_Data_Other.TextureFileName, GLB_Data_Other.TilePalette);
                     tile_palette.Invalidate();
 
                     // reset settings
@@ -320,22 +324,22 @@ namespace XNA_Map_Editor
         {
             if (e.Delta < 0)
             {
-                Camera.IncreaseZoom(xnaRenderer1.Width, xnaRenderer1.Height);
+                Camera.IncreaseZoomOther(xnaRenderer1.Width, xnaRenderer1.Height);
                 InitScrollBars();
             }
 
             if (e.Delta > 0)
             {
-                Camera.DecrementZoom();
+                Camera.DecrementZoomOther();
                 InitScrollBars();
             }
 
-            if (Math.Abs(Camera.X) + (GLB_Data_Other.MapSize.Width * Camera.ScaledTileSize) <= xnaRenderer1.Width)
+            if (Math.Abs(Camera.X) + (GLB_Data_Other.MapSize.Width * Camera.ScaledTileSizeOther) <= xnaRenderer1.Width)
             {
                 Camera.X = 0;
             }
 
-            if (Math.Abs(Camera.Y) + (GLB_Data_Other.MapSize.Height * Camera.ScaledTileSize) <= xnaRenderer1.Height)
+            if (Math.Abs(Camera.Y) + (GLB_Data_Other.MapSize.Height * Camera.ScaledTileSizeOther) <= xnaRenderer1.Height)
             {
                 Camera.Y = 0;
             }
@@ -349,14 +353,14 @@ namespace XNA_Map_Editor
 
         internal void InitScrollBars()
         {
-            if (GLB_Data_Other.MapSize.Width * Camera.ScaledTileSize > xnaRenderer1.Width)
+            if (GLB_Data_Other.MapSize.Width * Camera.ScaledTileSizeOther > xnaRenderer1.Width)
             {
                 // Enable Horizontal Bar
                 this.hscroll_xna.Visible = true;
 
                 // Set minimum and maximum values (not in pixels)
                 hscroll_xna.Minimum = 0;
-                hscroll_xna.Maximum = GLB_Data_Other.MapSize.Width * Camera.ScaledTileSize - xnaRenderer1.Width;
+                hscroll_xna.Maximum = GLB_Data_Other.MapSize.Width * Camera.ScaledTileSizeOther - xnaRenderer1.Width;
             }
             else
             {
@@ -364,14 +368,14 @@ namespace XNA_Map_Editor
                 this.hscroll_xna.Value = 0;
             }
 
-            if (GLB_Data_Other.MapSize.Height * Camera.ScaledTileSize > xnaRenderer1.Height)
+            if (GLB_Data_Other.MapSize.Height * Camera.ScaledTileSizeOther > xnaRenderer1.Height)
             {
                 // Enable Vertical Bar
                 this.vscroll_xna.Visible = true;
 
                 // Set minimum and maximum values (not in pixels)
                 vscroll_xna.Minimum = 0;
-                vscroll_xna.Maximum = GLB_Data_Other.MapSize.Height * Camera.ScaledTileSize - xnaRenderer1.Height;
+                vscroll_xna.Maximum = GLB_Data_Other.MapSize.Height * Camera.ScaledTileSizeOther - xnaRenderer1.Height;
             }
             else
             {
@@ -395,7 +399,7 @@ namespace XNA_Map_Editor
         {
             if (portalList.SelectedItem != null)
             {
-                XNA.Point selected_tile = HelperClass.TileSnapToGrid(Camera.WorldPosition(e.Location));
+                XNA.Point selected_tile = HelperClass.TileSnapToGridOther(Camera.WorldPosition(e.Location));
 
                 Portal originPortal;
 
@@ -407,10 +411,22 @@ namespace XNA_Map_Editor
                     }
                 }
 
-                Portal destinationPortal = new Portal();
+
+                PortalDestination destinationPortal = new PortalDestination();
+                destinationPortal.name = otherFileName;
+                destinationPortal.x = selected_tile.X;
+                destinationPortal.y = selected_tile.Y;
+
+                GLB_Data.destinations.Add(destinationPortal);
+
+                ((ListViewItem)portalList.SelectedItem).BackColor = System.Drawing.Color.Yellow;
+
+
+
+                /*
                 bool portalFound = false;
 
-                foreach (Portal portal in GLB_Data_Other.portals)
+                foreach (Portal portal in GLB_Data.portals)
                 {
                     if (portal.x == selected_tile.X && portal.y == selected_tile.Y)
                     {
@@ -456,6 +472,7 @@ namespace XNA_Map_Editor
 
                     ((ListViewItem)portalList.SelectedItem).BackColor = System.Drawing.Color.Yellow;
                 }
+                */
 
                 this.Refresh();
             }

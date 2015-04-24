@@ -132,6 +132,15 @@ namespace XNA_Map_Editor
         {
             XnaUpdate();
 
+            if (managePortalsForm != null)
+            {
+                if (managePortalsForm.xnaRenderer1 != null)
+                {
+                    managePortalsForm.XnaRender(sender, e);
+                    managePortalsForm.Show();
+                }
+            }
+
             GraphicsDevice.Clear(XNA.Color.CornflowerBlue);
 
             //BEGIN

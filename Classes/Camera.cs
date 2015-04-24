@@ -13,6 +13,7 @@ namespace XNA_Map_Editor.Classes
         static Vector2 position;
         static Int32   scrollbar_margin = 17;
         static float   zoom;
+        static float   zoomOther;
 
         #endregion
 
@@ -58,6 +59,13 @@ namespace XNA_Map_Editor.Classes
             }
         }
 
+        public static int ScaledTileSizeOther
+        {
+            get
+            {
+                return (int)(GLB_Data_Other.MapSize.TileSize * zoomOther);
+            }
+        }
 
         #endregion
 
@@ -123,6 +131,17 @@ namespace XNA_Map_Editor.Classes
 
         }
 
+        public static void IncreaseZoomOther(int Width, int Heigth)
+        {
+            zoomOther -= 0.1f;
+
+            if (zoomOther < 0.099f)
+            {
+                zoomOther = 0.099f;
+                return;
+            }
+        }
+        
         // Zoom UP
         public static void DecrementZoom()
         {
@@ -135,6 +154,16 @@ namespace XNA_Map_Editor.Classes
             }
         }
 
+        public static void DecrementZoomOther()
+        {
+            zoomOther += 0.1f;
+
+            if (zoomOther > 5f)
+            {
+                zoomOther = 5;
+                return;
+            }
+        }
         #endregion
 
         internal static Point XWorldPosition(System.Drawing.Point ScreenPoint)

@@ -91,10 +91,16 @@ namespace XNA_Map_Editor.Classes
             int.TryParse(split[0], out GLB_Data.MapSize.Width);
             int.TryParse(split[1], out GLB_Data.MapSize.Height);
             
-
             //tile size
-            startIndex = outie.IndexOf("<TileSize>") + "<TileSize>".Length;
-            length = outie.IndexOf("</TileSize>") - startIndex;
+            startIndex = outie.IndexOf("<FileTileSize>") + "<FileTileSize>".Length;
+            length = outie.IndexOf("</FileTileSize>") - startIndex;
+
+            if(length <= 0)
+            {
+                startIndex = outie.IndexOf("<TileSize>") + "<TileSize>".Length;
+                length = outie.IndexOf("</TileSize>") - startIndex;
+            }
+
 
             split = outie.Substring(startIndex, length).Split(' ');
 
@@ -114,12 +120,13 @@ namespace XNA_Map_Editor.Classes
 
             if(CheckTileTexture(ref xmap.texture_file_name, true))
             {
+                /*
                 //map name
                 startIndex = outie.IndexOf("<Name>") + "<Name>".Length;
                 length = outie.IndexOf("</Name>") - startIndex;
 
                 GLB_Data.MapName = outie.Substring(startIndex, length).Trim();
-
+                */
 
                 // palette
 
@@ -705,7 +712,6 @@ namespace XNA_Map_Editor.Classes
             GLB_Data_Other.TextureFileName = outie.Substring(startIndex, length).Trim();
 
 
-
             //map dimensions
             startIndex = outie.IndexOf("<MapDimensions>") + "<MapDimensions>".Length;
             length = outie.IndexOf("</MapDimensions>") - startIndex;
@@ -715,10 +721,16 @@ namespace XNA_Map_Editor.Classes
             int.TryParse(split[0], out GLB_Data_Other.MapSize.Width);
             int.TryParse(split[1], out GLB_Data_Other.MapSize.Height);
 
-
             //tile size
-            startIndex = outie.IndexOf("<TileSize>") + "<TileSize>".Length;
-            length = outie.IndexOf("</TileSize>") - startIndex;
+            startIndex = outie.IndexOf("<FileTileSize>") + "<FileTileSize>".Length;
+            length = outie.IndexOf("</FileTileSize>") - startIndex;
+
+            if (length <= 0)
+            {
+                startIndex = outie.IndexOf("<TileSize>") + "<TileSize>".Length;
+                length = outie.IndexOf("</TileSize>") - startIndex;
+            }
+
 
             split = outie.Substring(startIndex, length).Split(' ');
 
@@ -738,14 +750,17 @@ namespace XNA_Map_Editor.Classes
 
             if (CheckTileTexture(ref xmap.texture_file_name, true))
             {
+                /*
                 //map name
                 startIndex = outie.IndexOf("<Name>") + "<Name>".Length;
                 length = outie.IndexOf("</Name>") - startIndex;
 
-                //GLB_Data_Other.MapName = outie.Substring(startIndex, length).Trim();
-
+                GLB_Data_Other.MapName = outie.Substring(startIndex, length).Trim();
+                */
 
                 // palette
+
+                GLB_Data_Other.MapSize.Depth = 4;
 
                 Tile t;
 
@@ -961,6 +976,30 @@ namespace XNA_Map_Editor.Classes
                     GLB_Data_Other.portals = new List<Portal>();
 
                 GLB_Data_Other.portalIndex = xmap.portalIndex;
+
+                GLB_Data_Other.destinations = xmap.destinations;
+                if (GLB_Data_Other.destinations == null)
+                    GLB_Data_Other.destinations = new List<PortalDestination>();
+
+                GLB_Data_Other.chests = xmap.chests;
+                if (GLB_Data_Other.chests == null)
+                    GLB_Data_Other.chests = new List<Chest>();
+
+                GLB_Data_Other.npcs = xmap.npcs;
+                if (GLB_Data_Other.npcs == null)
+                    GLB_Data_Other.npcs = new List<NPC>();
+
+                GLB_Data_Other.fixedCombatNPCs = xmap.fixedCombatNPCs;
+                if (GLB_Data_Other.fixedCombatNPCs == null)
+                    GLB_Data_Other.fixedCombatNPCs = new List<FixedCombatNPC>();
+
+                GLB_Data_Other.blocks = xmap.blocks;
+                if (GLB_Data_Other.blocks == null)
+                    GLB_Data_Other.blocks = new List<Block>();
+
+                GLB_Data_Other.switches = xmap.switches;
+                if (GLB_Data_Other.switches == null)
+                    GLB_Data_Other.switches = new List<Switch>();
 
 
                 xmap.tile_map = GLB_Data_Other.TileMap;

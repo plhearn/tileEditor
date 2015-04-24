@@ -125,7 +125,7 @@
 
         #endregion
 
-        private XNARenderer xnaRenderer1;
+        public XNARenderer xnaRenderer1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolbar_loadMapPortals;
         private System.Windows.Forms.ListBox portalList;

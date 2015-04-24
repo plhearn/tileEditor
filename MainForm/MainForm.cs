@@ -164,7 +164,8 @@ namespace XNA_Map_Editor
         public static List<Block> blocks;
         public static List<Switch> switches;
 
-        public static List<PortalDestination>  destinations;
+        public static List<PortalDestination> destinations;
+        public static List<XNA.Rectangle> marqueeHist = new List<XNA.Rectangle>();
     }
 
     public struct GLB_Data_Other
@@ -186,6 +187,14 @@ namespace XNA_Map_Editor
 
         public static List<Portal> portals;
         public static int portalIndex;
+
+        public static List<Chest> chests;
+        public static List<NPC> npcs;
+        public static List<FixedCombatNPC> fixedCombatNPCs;
+        public static List<Block> blocks;
+        public static List<Switch> switches;
+
+        public static List<PortalDestination> destinations;
     }
 
     public partial class MainForm : Form
@@ -257,6 +266,7 @@ namespace XNA_Map_Editor
 
         //monster edit form
         EditSwitches editSwitches;
+
 
         #endregion
 
@@ -738,6 +748,13 @@ namespace XNA_Map_Editor
                 //Marquee Selection finsihed
                 GLB_Data.MarqueeSelection.Show = false;
             }
+
+            if (GLB_Data.Brush == PaintTool.MarqueeWalk)
+                GLB_Data.marqueeHist.Add(new XNA.Rectangle(
+                GLB_Data.MarqueeSelection.InitialTile.X,
+                GLB_Data.MarqueeSelection.InitialTile.Y,
+                GLB_Data.MarqueeSelection.Width,
+                GLB_Data.MarqueeSelection.Height));
         }
 
         private void MainForm_Resize(object sender, EventArgs e)

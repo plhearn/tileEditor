@@ -212,6 +212,25 @@ namespace XNA_Map_Editor.Helpers
             // NOT FOUND
             return new XNA.Point();
         }
+
+        internal static Microsoft.Xna.Framework.Point TileSnapToGridOther(Point Location)
+        {
+            for (int id_y = 0; id_y < GLB_Data_Other.MapSize.Height; id_y++)
+            {
+                for (int id_x = 0; id_x < GLB_Data_Other.MapSize.Width; id_x++)
+                {
+                    if ((Location.X >= id_x * Camera.ScaledTileSizeOther && Location.X <= id_x * Camera.ScaledTileSizeOther + Camera.ScaledTileSizeOther) &&
+                        (Location.Y >= id_y * Camera.ScaledTileSizeOther && Location.Y <= id_y * Camera.ScaledTileSizeOther + Camera.ScaledTileSizeOther))
+                    {
+                        // FOUND                       
+                        return new XNA.Point(id_x, id_y);
+                    }
+                }
+            }
+
+            // NOT FOUND
+            return new XNA.Point();
+        }
     }
 
 }

@@ -132,20 +132,22 @@ namespace XNA_Map_Editor.Classes
             xml_text_writer.WriteStartElement("XnaContent");
             xml_text_writer.WriteStartElement("Asset");
             xml_text_writer.WriteStartAttribute("Type");
-            xml_text_writer.WriteString("RolePlayingGameData.Map");
+            xml_text_writer.WriteString("Game1.Map");
             xml_text_writer.WriteEndAttribute();
             
             {
-                xml_text_writer.WriteElementString("Name", fileName);
+                //xml_text_writer.WriteElementString("Name", fileName);
                 xml_text_writer.WriteElementString("MapDimensions", GLB_Data.MapSize.Width.ToString() + " " + GLB_Data.MapSize.Height.ToString());
-                xml_text_writer.WriteElementString("TileSize", GLB_Data.MapSize.TileSize.ToString() + " " + GLB_Data.MapSize.TileSize.ToString());
+                //xml_text_writer.WriteElementString("MapDimensions", (GLB_Data.MapSize.Width*2).ToString() + " " + (GLB_Data.MapSize.Height*2).ToString());
+                xml_text_writer.WriteElementString("TileSize", "64 64");
+                xml_text_writer.WriteElementString("FileTileSize", GLB_Data.MapSize.TileSize.ToString() + " " + GLB_Data.MapSize.TileSize.ToString());
                 xml_text_writer.WriteElementString("SpawnMapPosition", "10 10");
                 
 
                // Texture
                if (GLB_Data.TilesTexture == null)
                {
-                    xml_text_writer.WriteElementString("TextureName", "null");
+                   xml_text_writer.WriteElementString("TextureName", "null");
                     //xml_text_writer.WriteElementString("Width", "null");
                     //xml_text_writer.WriteElementString("Height", "null");
                 }
@@ -158,9 +160,10 @@ namespace XNA_Map_Editor.Classes
                 }
 
 
-               xml_text_writer.WriteElementString("CombatTextureName", "CombatBkgdVillage");
-               xml_text_writer.WriteElementString("MusicCueName", "");
-               xml_text_writer.WriteElementString("CombatMusicCueName", "BattleTheme");
+               //xml_text_writer.WriteElementString("var", " ");
+               //xml_text_writer.WriteElementString("MusicCueName", null);
+               //xml_text_writer.WriteElementString("CombatMusicCueName", " ");
+               //xml_text_writer.WriteElementString("Effect", " ");
 
                 /*
                 xml_text_writer.WriteStartElement("TERRAINS");
@@ -210,6 +213,15 @@ namespace XNA_Map_Editor.Classes
 
                             for (int id_y = 0; id_y < GLB_Data.MapSize.Height; id_y++)
                             {
+                                /*
+                                int[] aux_tile_row = new int[GLB_Data.MapSize.Width*2];
+
+                                for (int id_x = 0; id_x < GLB_Data.MapSize.Width * 2; id_x++)
+                                {
+                                    aux_tile_row[id_x] = GLB_Data.TileMap[id_z, id_x/2, id_y].id;
+                                }
+                                */
+
                                 int[] aux_tile_row = new int[GLB_Data.MapSize.Width];
 
                                 for (int id_x = 0; id_x < GLB_Data.MapSize.Width; id_x++)
@@ -232,6 +244,7 @@ namespace XNA_Map_Editor.Classes
                                     }
                                 }
 
+                                //xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
                                 xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
 
                             }// for (layers);
@@ -245,12 +258,17 @@ namespace XNA_Map_Editor.Classes
                     // walk layer
                     for (int id_y = 0; id_y < GLB_Data.MapSize.Height; id_y++)
                     {
+                        //int[] aux_tile_row = new int[GLB_Data.MapSize.Width * 2];
+
+                        //for (int id_x = 0; id_x < GLB_Data.MapSize.Width * 2; id_x++)
                         int[] aux_tile_row = new int[GLB_Data.MapSize.Width];
 
                         for (int id_x = 0; id_x < GLB_Data.MapSize.Width; id_x++)
                         {
+                            //aux_tile_row[id_x] = Convert.ToInt32(GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x/2, id_y].walkable);
                             aux_tile_row[id_x] = Convert.ToInt32(GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].walkable);
 
+                            //if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x/2, id_y].terrain_type == 2)
                             if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].terrain_type == 2)
                                 aux_tile_row[id_x] = 2;
                         }
@@ -317,7 +335,71 @@ namespace XNA_Map_Editor.Classes
             */
             }
 
+            
+            //write warps
+            if (GLB_Data.portals.Count > 0)
+                xml_text_writer.WriteStartElement("Warps");
 
+            for (int i = 0; i < GLB_Data.portals.Count; i++)
+            {
+                xml_text_writer.WriteString(Environment.NewLine);
+                string warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + GLB_Data.portals[i].y.ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + GLB_Data.destinations[i].y.ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+
+                xml_text_writer.WriteString(Environment.NewLine);
+                warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + (GLB_Data.portals[i].y-1).ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + (GLB_Data.destinations[i].y-1).ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+
+                xml_text_writer.WriteString(Environment.NewLine);
+                warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + (GLB_Data.portals[i].y - 2).ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + (GLB_Data.destinations[i].y - 2).ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+
+                xml_text_writer.WriteString(Environment.NewLine);
+                warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + (GLB_Data.portals[i].y - 3).ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + (GLB_Data.destinations[i].y - 3).ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+            }
+
+            if (GLB_Data.portals.Count > 0)
+            {
+                xml_text_writer.WriteString(Environment.NewLine);
+                xml_text_writer.WriteEndElement();
+            }
+            
+
+
+            //write warps
+            xml_text_writer.WriteStartElement("polys");
+
+            for (int i = 0; i < GLB_Data.marqueeHist.Count; i++)
+            {
+                xml_text_writer.WriteString(Environment.NewLine);
+                string warpStr = "";
+                warpStr += GLB_Data.marqueeHist[i].X.ToString() + ";" + GLB_Data.marqueeHist[i].Y.ToString() + ";";
+                warpStr += GLB_Data.marqueeHist[i].Width.ToString() + ";" + GLB_Data.marqueeHist[i].Height.ToString() + ";";
+                warpStr += "t1;";
+                xml_text_writer.WriteString(warpStr);
+            }
+
+            xml_text_writer.WriteString(Environment.NewLine);
+            xml_text_writer.WriteEndElement();
+
+            /*
             //write portal entries
             xml_text_writer.WriteStartElement("Portals");
 
@@ -349,7 +431,6 @@ namespace XNA_Map_Editor.Classes
             xml_text_writer.WriteEndElement();
 
 
-
             xml_text_writer.WriteStartElement("ChestEntries");
 
             foreach(Chest chest in GLB_Data.chests)
@@ -362,9 +443,10 @@ namespace XNA_Map_Editor.Classes
 
             xml_text_writer.WriteEndElement();
 
+            */
 
-            
-            xml_text_writer.WriteStartElement("FixedCombatEntries");
+            if (GLB_Data.fixedCombatNPCs.Count > 0)
+                xml_text_writer.WriteStartElement("FixedCombatEntries");
 
             foreach(FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
             {
@@ -375,12 +457,14 @@ namespace XNA_Map_Editor.Classes
                 xml_text_writer.WriteEndElement();
             }
 
-            xml_text_writer.WriteEndElement();
-
-            xml_text_writer.WriteStartElement("lightsources");
+            if (GLB_Data.fixedCombatNPCs.Count > 0)
+                xml_text_writer.WriteEndElement();
 
             /*
 
+            xml_text_writer.WriteStartElement("lightsources");
+
+
             xml_text_writer.WriteString(Environment.NewLine + "0,0, 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181,player" + Environment.NewLine);
 
             foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
@@ -401,13 +485,13 @@ namespace XNA_Map_Editor.Classes
                 xml_text_writer.WriteString((combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
 
             }
-            */
 
             xml_text_writer.WriteEndElement();
 
+            
+            */
 
-
-
+            /*
 
             xml_text_writer.WriteStartElement("enemies");
 
@@ -492,6 +576,7 @@ namespace XNA_Map_Editor.Classes
 
             xml_text_writer.WriteEndElement();
 
+             */
 
 
             xml_text_writer.WriteEndElement();// Asset

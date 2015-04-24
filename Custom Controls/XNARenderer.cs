@@ -4,7 +4,7 @@ using System.Text;
 
 namespace XNA_Map_Editor
 {
-    class XNARenderer : GraphicsDeviceControl
+    public class XNARenderer : GraphicsDeviceControl
     {
         public EventHandler OnInitialize;
         public EventHandler OnDraw;        
