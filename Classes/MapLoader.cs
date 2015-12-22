@@ -160,10 +160,11 @@ namespace XNA_Map_Editor.Classes
                 }
 
 
-                char[] splitChars = new char[3];
+                char[] splitChars = new char[4];
                 splitChars[0] = ' ';
                 splitChars[1] = '\n';
                 splitChars[2] = '\r';
+                splitChars[3] = '\t';
 
                 GLB_Data.TileMap = new Tile[4, GLB_Data.MapSize.Width, GLB_Data.MapSize.Height];
 
@@ -792,10 +793,11 @@ namespace XNA_Map_Editor.Classes
                 }
 
 
-                char[] splitChars = new char[3];
+                char[] splitChars = new char[4];
                 splitChars[0] = ' ';
                 splitChars[1] = '\n';
                 splitChars[2] = '\r';
+                splitChars[3] = '\t';
 
                 GLB_Data_Other.TileMap = new Tile[4, GLB_Data_Other.MapSize.Width, GLB_Data_Other.MapSize.Height];
 

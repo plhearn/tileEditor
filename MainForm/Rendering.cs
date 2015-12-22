@@ -95,6 +95,10 @@ namespace XNA_Map_Editor
                 toolbar_terrain_brush.Enabled = true;
                 toolbar_terrain_combo.Enabled = true;
             }
+
+            if ((Control.ModifierKeys & System.Windows.Forms.Keys.Alt) != 0)
+                Camera.SetZoom(0.2f);
+
         }
 
         private void UpdateWalkGridAlpha()

@@ -448,13 +448,20 @@ namespace XNA_Map_Editor.Classes
             if (GLB_Data.fixedCombatNPCs.Count > 0)
                 xml_text_writer.WriteStartElement("FixedCombatEntries");
 
+            xml_text_writer.WriteString(Environment.NewLine);
+
             foreach(FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
             {
+                /*
                 xml_text_writer.WriteStartElement("Item");
                 xml_text_writer.WriteElementString("ContentName", combatNPC.name);
                 xml_text_writer.WriteElementString("MapPosition", combatNPC.x + " " + combatNPC.y);
                 xml_text_writer.WriteElementString("Direction", combatNPC.direction);
                 xml_text_writer.WriteEndElement();
+                */
+
+                xml_text_writer.WriteString("skellySoldier, " + (combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString());
+                xml_text_writer.WriteString(Environment.NewLine);
             }
 
             if (GLB_Data.fixedCombatNPCs.Count > 0)
@@ -475,8 +482,12 @@ namespace XNA_Map_Editor.Classes
 
 
 
+            
+            */
 
-            xml_text_writer.WriteStartElement("lightsources");
+
+            /*
+            xml_text_writer.WriteStartElement("lightSources");
 
             xml_text_writer.WriteString(Environment.NewLine + "0,0, 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181,player" + Environment.NewLine);
 
@@ -487,8 +498,6 @@ namespace XNA_Map_Editor.Classes
             }
 
             xml_text_writer.WriteEndElement();
-
-            
             */
 
             /*

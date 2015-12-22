@@ -164,6 +164,18 @@ namespace XNA_Map_Editor.Classes
                 return;
             }
         }
+
+        public static void SetZoom(float z)
+        {
+            zoom = z;
+
+            if (zoom > 5f)
+            {
+                zoom = 5;
+                return;
+            }
+        }
+
         #endregion
 
         internal static Point XWorldPosition(System.Drawing.Point ScreenPoint)
