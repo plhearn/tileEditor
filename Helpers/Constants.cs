@@ -22,10 +22,10 @@ namespace XNA_Map_Editor.Helpers
         public static readonly Int32 MAX_MAP_DEPTH      = 10;
 
         public static readonly Int32 MIN_MAP_WIDTH      = 1;
-        public static readonly Int32 MAX_MAP_WIDTH      = 200;
+        public static readonly Int32 MAX_MAP_WIDTH      = 20000;
 
         public static readonly Int32 MIN_MAP_HEIGHT     = 1;
-        public static readonly Int32 MAX_MAP_HEIGHT     = 200;
+        public static readonly Int32 MAX_MAP_HEIGHT     = 20000;
 
         public static readonly float MAX_ZOOM           = -2f;
         public static readonly float MIN_ZOOM           = 4f;

@@ -208,6 +208,7 @@ namespace XNA_Map_Editor
 
                     terrain_editor_form.PopulateCombo();
 
+
                     // loading done
                     //MessageBox.Show("TileMap loaded successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

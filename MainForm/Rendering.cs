@@ -247,6 +247,27 @@ namespace XNA_Map_Editor
         {
             if (ShowWalkLayer)
             {
+
+                for (int i = 0; i < GLB_Data.marqueeHist.Count; i++)
+                {
+                    XNA.Color c = new XNA.Color(255, 0, 0, AlphaValue);
+
+                    if (GLB_Data.marqueeHistType[i] == 2)
+                        c = new XNA.Color(0, 255, 0, AlphaValue);
+
+                    sprite_batch.Draw(grid_texture, Camera.Transform(
+                        new XNA.Rectangle(
+                            GLB_Data.marqueeHist[i].X * Camera.ScaledTileSize
+                            , GLB_Data.marqueeHist[i].Y * Camera.ScaledTileSize
+                            , GLB_Data.marqueeHist[i].Width * Camera.ScaledTileSize
+                            , GLB_Data.marqueeHist[i].Height * Camera.ScaledTileSize))
+                            , c);
+                }
+
+
+
+
+                /*
                 int walk_layer = GetWalkLayer();
 
                 for (int id_y = 0; id_y < GLB_Data.MapSize.Height; id_y++)
@@ -267,6 +288,7 @@ namespace XNA_Map_Editor
                         }
                     }
                 }
+                */
             }
         }
 

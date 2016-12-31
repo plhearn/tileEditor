@@ -799,8 +799,8 @@
             // 
             // hscroll_xna
             // 
-            this.hscroll_xna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hscroll_xna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hscroll_xna.Location = new System.Drawing.Point(3, 596);
             this.hscroll_xna.Name = "hscroll_xna";
             this.hscroll_xna.Size = new System.Drawing.Size(619, 17);
@@ -818,8 +818,8 @@
             // 
             // vscroll_xna
             // 
-            this.vscroll_xna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.vscroll_xna.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.vscroll_xna.Location = new System.Drawing.Point(622, -3);
             this.vscroll_xna.Name = "vscroll_xna";
             this.vscroll_xna.Size = new System.Drawing.Size(17, 599);

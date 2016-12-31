@@ -28,14 +28,14 @@ namespace XNA_Map_Editor.SubForms
             txt_width.Text  = GLB_Data.MapSize.Width.ToString();
             txt_height.Text = GLB_Data.MapSize.Height.ToString();
 
+            SetMapLimits();
+
             updwn_depth.Value  = GLB_Data.MapSize.Depth;
             updwn_width.Value  = GLB_Data.MapSize.Width;
             updwn_height.Value = GLB_Data.MapSize.Height;
 
             // init position            
             this.StartPosition = FormStartPosition.CenterParent;
-
-            SetMapLimits();
         }
 
         private void SetMapLimits()

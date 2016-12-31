@@ -340,6 +340,43 @@ namespace XNA_Map_Editor.Classes
                 }
 
 
+                //polys
+                startIndex = outie.IndexOf("<polys>") + "<polys>".Length;
+                length = outie.IndexOf("</polys>") - startIndex;
+
+                if (length < 0)
+                    length = 0;
+
+                split = outie.Substring(startIndex, length).Split(new char[] {'\r', '\n'});
+
+                GLB_Data.marqueeHist.Clear();
+                GLB_Data.marqueeHistType.Clear();
+
+                foreach (string s in split)
+                {
+                    if (s.Trim() != "")
+                    {
+
+                        string[] rFields = s.Split(';');
+
+                        Microsoft.Xna.Framework.Rectangle r = new Microsoft.Xna.Framework.Rectangle();
+
+                        r.X = int.Parse(rFields[0]);
+                        r.Y = int.Parse(rFields[1]);
+                        r.Width = int.Parse(rFields[2]);
+                        r.Height = int.Parse(rFields[3]);
+
+                        int rType = 0;
+
+                        if (rFields[4] == "t2")
+                            rType = 2;
+
+                        GLB_Data.marqueeHist.Add(r);
+                        GLB_Data.marqueeHistType.Add(rType);
+                    }
+                }
+
+
                 GLB_Data.portals = xmap.portals;
                 if (GLB_Data.portals == null)
                     GLB_Data.portals = new List<Portal>();

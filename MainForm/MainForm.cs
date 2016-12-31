@@ -166,6 +166,7 @@ namespace XNA_Map_Editor
 
         public static List<PortalDestination> destinations;
         public static List<XNA.Rectangle> marqueeHist = new List<XNA.Rectangle>();
+        public static List<int> marqueeHistType = new List<int>();
     }
 
     public struct GLB_Data_Other
@@ -750,11 +751,44 @@ namespace XNA_Map_Editor
             }
 
             if (GLB_Data.Brush == PaintTool.MarqueeWalk)
-                GLB_Data.marqueeHist.Add(new XNA.Rectangle(
+            {
+
+                XNA.Rectangle r = new XNA.Rectangle(
                 GLB_Data.MarqueeSelection.InitialTile.X,
                 GLB_Data.MarqueeSelection.InitialTile.Y,
                 GLB_Data.MarqueeSelection.Width,
-                GLB_Data.MarqueeSelection.Height));
+                GLB_Data.MarqueeSelection.Height);
+
+                int rType = 0;
+
+                if ((Control.ModifierKeys & System.Windows.Forms.Keys.Shift) != 0)
+                    rType = 2;
+
+                bool hit = false;
+                int hitIndex = -1;
+
+                for(int i=0; i<GLB_Data.marqueeHist.Count; i++)
+                {
+                    if (r.Intersects(GLB_Data.marqueeHist[i]))
+                    {
+                        hit = true;
+                        hitIndex = i;
+                    }
+                }
+
+                if (hit)
+                {
+                    GLB_Data.marqueeHist.RemoveAt(hitIndex);
+                    GLB_Data.marqueeHistType.RemoveAt(hitIndex);
+                }
+                else
+                {
+                    GLB_Data.marqueeHist.Add(r);
+                    GLB_Data.marqueeHistType.Add(rType);
+                }
+
+
+            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)

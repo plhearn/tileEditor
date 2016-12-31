@@ -234,18 +234,21 @@ namespace XNA_Map_Editor.Classes
 
                                 for (int n = 0; n < aux_tile_row.GetLength(0); n++)
                                 {
+                                    //if (n >= 16 && n < 32)
                                     if (n == aux_tile_row.GetLength(0) - 1)
                                     {
-                                        aux_string_builder.Append(Convert.ToString(aux_tile_row[n]));
+                                        aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                        //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
                                     }
                                     else
                                     {
                                         aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                        //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
                                     }
                                 }
 
-                                //xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
                                 xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
+                                //xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
 
                             }// for (layers);
                         }
@@ -287,15 +290,20 @@ namespace XNA_Map_Editor.Classes
 
                             if (n == aux_tile_row.GetLength(0) - 1)
                             {
-                                aux_string_builder.Append(Convert.ToString(aux_tile_row[n]));
+                                //if (n >= 16 && n < 32)
+                                aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
                             }
                             else
                             {
+                                //if (n >= 16 && n < 32)
                                 aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
                             }
                         }
 
                         xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
+                        //xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
                     }
                 }
                 xml_text_writer.WriteEndElement();// CollisionLayer;
@@ -388,11 +396,18 @@ namespace XNA_Map_Editor.Classes
 
             for (int i = 0; i < GLB_Data.marqueeHist.Count; i++)
             {
+                string strType = "t1";
+
+                if (GLB_Data.marqueeHistType[i] == 2)
+                {
+                    strType = "t2";
+                }
+
                 xml_text_writer.WriteString(Environment.NewLine);
                 string warpStr = "";
                 warpStr += GLB_Data.marqueeHist[i].X.ToString() + ";" + GLB_Data.marqueeHist[i].Y.ToString() + ";";
                 warpStr += GLB_Data.marqueeHist[i].Width.ToString() + ";" + GLB_Data.marqueeHist[i].Height.ToString() + ";";
-                warpStr += "t1;";
+                warpStr += strType + ";";
                 xml_text_writer.WriteString(warpStr);
             }
 
