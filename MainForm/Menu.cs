@@ -134,6 +134,7 @@ namespace XNA_Map_Editor
         private void saveMapToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Open save dialog
+            save_map_dialog.FileName = GLB_Data.MapName;
             DialogResult saved_result = this.save_map_dialog.ShowDialog();
 
             if (saved_result == DialogResult.OK)
@@ -151,7 +152,7 @@ namespace XNA_Map_Editor
 
                 xml_writer.SaveMapXml(save_map_dialog.FileName);
 
-                MessageBox.Show("TileMap saved successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("TileMap saved successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
                
             }
         }
