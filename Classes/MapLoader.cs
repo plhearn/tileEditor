@@ -321,8 +321,8 @@ namespace XNA_Map_Editor.Classes
                         if (int.Parse(s) == 0)
                             walk = true;
 
-                        if (int.Parse(s) == 2)
-                            t.terrain_type = 2;
+                        if (int.Parse(s) > 0)
+                            t.terrain_type = int.Parse(s);
 
                         t.walkable = walk;
 
@@ -368,8 +368,8 @@ namespace XNA_Map_Editor.Classes
 
                         int rType = 0;
 
-                        if (rFields[4] == "t2")
-                            rType = 2;
+                        if (int.Parse(rFields[4].Replace("t", "")) > 0)
+                            rType = int.Parse(rFields[4].Replace("t", ""));
 
                         GLB_Data.marqueeHist.Add(r);
                         GLB_Data.marqueeHistType.Add(rType);
@@ -991,8 +991,8 @@ namespace XNA_Map_Editor.Classes
                         if (int.Parse(s) == 0)
                             walk = true;
 
-                        if (int.Parse(s) == 2)
-                            t.terrain_type = 2;
+                        if (int.Parse(s) > 0)
+                            t.terrain_type = int.Parse(s);
 
                         t.walkable = walk;
 

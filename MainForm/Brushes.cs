@@ -494,11 +494,16 @@ namespace XNA_Map_Editor
                             GLB_Data.TileMap[GetWalkLayer(), offset_x, offset_y].walkable = true;
                         }
 
+                        int type = 0;
 
                         if ((Control.ModifierKeys & System.Windows.Forms.Keys.Shift) != 0)
-                            GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 2;
-                        else
-                            GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 0;
+                            type = 2;
+                        else if (Keyboard.GetState().IsKeyDown(XNA.Input.Keys.Q))
+                            type = 6;
+                        else if (Keyboard.GetState().IsKeyDown(XNA.Input.Keys.E))
+                            type = 5;
+
+                        GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = type;
                     }
                 }
             }
@@ -608,10 +613,16 @@ namespace XNA_Map_Editor
                     GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].walkable = true;
                 }
 
+                int type = 0;
+
                 if ((Control.ModifierKeys & System.Windows.Forms.Keys.Shift) != 0)
-                    GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 2;
-                else
-                    GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = 0;
+                    type = 2;
+                else if (Keyboard.GetState().IsKeyDown(XNA.Input.Keys.Q))
+                    type = 6;
+                else if (Keyboard.GetState().IsKeyDown(XNA.Input.Keys.E))
+                    type = 5;
+
+                GLB_Data.TileMap[walk_layer, selected_tile.X, selected_tile.Y].terrain_type = type;
             }
         }
 

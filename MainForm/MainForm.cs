@@ -763,6 +763,10 @@ namespace XNA_Map_Editor
 
                 if ((Control.ModifierKeys & System.Windows.Forms.Keys.Shift) != 0)
                     rType = 2;
+                else if (Keyboard.GetState().IsKeyDown(XNA.Input.Keys.Q))
+                    rType = 6;
+                else if (Keyboard.GetState().IsKeyDown(XNA.Input.Keys.E))
+                    rType = 5;
 
                 bool hit = false;
                 int hitIndex = -1;

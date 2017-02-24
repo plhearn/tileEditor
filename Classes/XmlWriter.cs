@@ -272,8 +272,8 @@ namespace XNA_Map_Editor.Classes
                             aux_tile_row[id_x] = Convert.ToInt32(GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].walkable);
 
                             //if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x/2, id_y].terrain_type == 2)
-                            if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].terrain_type == 2)
-                                aux_tile_row[id_x] = 2;
+                            if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].terrain_type > 1)
+                                aux_tile_row[id_x] = GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].terrain_type;
                         }
 
                         // write row
@@ -398,9 +398,9 @@ namespace XNA_Map_Editor.Classes
             {
                 string strType = "t1";
 
-                if (GLB_Data.marqueeHistType[i] == 2)
+                if (GLB_Data.marqueeHistType[i] > 1)
                 {
-                    strType = "t2";
+                    strType = "t" + GLB_Data.marqueeHistType[i].ToString();
                 }
 
                 xml_text_writer.WriteString(Environment.NewLine);

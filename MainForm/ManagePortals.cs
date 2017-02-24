@@ -174,6 +174,10 @@ namespace XNA_Map_Editor
                             // Render Normally
                             if (GLB_Data_Other.TileMap[id_z, id_x, id_y].terrain_type == 2)
                                 sprite_batch.Draw(GLB_Data_Other.TilesTexture, dest_rectangle, source_rectangle, XNA.Color.GreenYellow);
+                            if (GLB_Data_Other.TileMap[id_z, id_x, id_y].terrain_type == 5)
+                                sprite_batch.Draw(GLB_Data_Other.TilesTexture, dest_rectangle, source_rectangle, XNA.Color.Blue);
+                            if (GLB_Data_Other.TileMap[id_z, id_x, id_y].terrain_type == 6)
+                                sprite_batch.Draw(GLB_Data_Other.TilesTexture, dest_rectangle, source_rectangle, XNA.Color.Yellow);
                             else
                                 sprite_batch.Draw(GLB_Data_Other.TilesTexture, dest_rectangle, source_rectangle, XNA.Color.White);
                         }

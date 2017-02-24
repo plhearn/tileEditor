@@ -255,6 +255,12 @@ namespace XNA_Map_Editor
                     if (GLB_Data.marqueeHistType[i] == 2)
                         c = new XNA.Color(0, 255, 0, AlphaValue);
 
+                    if (GLB_Data.marqueeHistType[i] == 5)
+                        c = new XNA.Color(0, 0, 255, AlphaValue);
+
+                    if (GLB_Data.marqueeHistType[i] == 6)
+                        c = new XNA.Color(255, 255, 0, AlphaValue);
+
                     sprite_batch.Draw(grid_texture, Camera.Transform(
                         new XNA.Rectangle(
                             GLB_Data.marqueeHist[i].X * Camera.ScaledTileSize
