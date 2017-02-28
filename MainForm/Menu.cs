@@ -151,7 +151,7 @@ namespace XNA_Map_Editor
                 */
 
                 xml_writer.SaveMapXml(save_map_dialog.FileName);
-
+                GLB_Data.MapName = save_map_dialog.FileName;
                 //MessageBox.Show("TileMap saved successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
                
             }
