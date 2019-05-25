@@ -308,6 +308,14 @@ namespace XNA_Map_Editor
 
         private void DoBrushLogic(object sender, MouseEventArgs e)
         {
+            /*
+            if(openingFile)
+            {
+                openingFile = false;
+                return;
+            }
+            */
+
             switch (GLB_Data.Brush)
             {
                 case PaintTool.Brush:

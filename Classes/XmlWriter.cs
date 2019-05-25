@@ -110,7 +110,7 @@ namespace XNA_Map_Editor.Classes
 
         private void CreateXmlDocument(string fileName="map")
         {
-            CreateXmlDocument(this.xml_text_writer, true, fileName);
+            CreateXmlDocumentLab(this.xml_text_writer, true, fileName);
         }
 
         private void CreateXmlDocument(XmlTextWriter Writer, Boolean UsingStream, string fileName)
@@ -139,7 +139,7 @@ namespace XNA_Map_Editor.Classes
                 //xml_text_writer.WriteElementString("Name", fileName);
                 xml_text_writer.WriteElementString("MapDimensions", GLB_Data.MapSize.Width.ToString() + " " + GLB_Data.MapSize.Height.ToString());
                 //xml_text_writer.WriteElementString("MapDimensions", (GLB_Data.MapSize.Width*2).ToString() + " " + (GLB_Data.MapSize.Height*2).ToString());
-                xml_text_writer.WriteElementString("TileSize", "64 64");
+                xml_text_writer.WriteElementString("TileSize", "96 96");
                 xml_text_writer.WriteElementString("FileTileSize", GLB_Data.MapSize.TileSize.ToString() + " " + GLB_Data.MapSize.TileSize.ToString());
                 xml_text_writer.WriteElementString("SpawnMapPosition", "10 10");
                 
@@ -475,7 +475,7 @@ namespace XNA_Map_Editor.Classes
                 xml_text_writer.WriteEndElement();
                 */
 
-                xml_text_writer.WriteString("skellySoldier, " + (combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString());
+                xml_text_writer.WriteString("skellySoldier, " + (combatNPC.x * 96).ToString() + ", " + (combatNPC.y * 96).ToString());
                 xml_text_writer.WriteString(Environment.NewLine);
             }
 
@@ -491,7 +491,7 @@ namespace XNA_Map_Editor.Classes
 
             foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
             {
-                xml_text_writer.WriteString((combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
+                xml_text_writer.WriteString((combatNPC.x * 96).ToString() + ", " + (combatNPC.y * 96).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
 
             }
 
@@ -508,7 +508,7 @@ namespace XNA_Map_Editor.Classes
 
             foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
             {
-                xml_text_writer.WriteString((combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
+                xml_text_writer.WriteString((combatNPC.x * 96).ToString() + ", " + (combatNPC.y * 96).ToString() + ", 300, 1.5, 1, 0.001, 1, 1.1, 00000000, 00000000, 00000000, 00000000, 9, -180, 181," + Environment.NewLine);
 
             }
 
@@ -523,7 +523,7 @@ namespace XNA_Map_Editor.Classes
 
             foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
             {
-                xml_text_writer.WriteString("hopper, " + (combatNPC.x * 64).ToString() + ", " + (combatNPC.y * 64).ToString() + Environment.NewLine);
+                xml_text_writer.WriteString("hopper, " + (combatNPC.x * 96).ToString() + ", " + (combatNPC.y * 96).ToString() + Environment.NewLine);
 
             }
 
@@ -603,6 +603,268 @@ namespace XNA_Map_Editor.Classes
              */
 
 
+            xml_text_writer.WriteEndElement();// Asset
+
+            xml_text_writer.WriteFullEndElement();
+
+            if (UsingStream)
+            {
+                xml_text_writer.Flush();
+                // Position to begining of stream 
+                memory_stream.Position = 0;
+            }
+            else
+            {
+                xml_text_writer.WriteEndDocument();
+                xml_text_writer.Close();
+            }
+        }
+
+        private void CreateXmlDocumentLab(XmlTextWriter Writer, Boolean UsingStream, string fileName)
+        {
+            if (UsingStream)
+            {
+                memory_stream = new MemoryStream();
+                xml_text_writer = new XmlTextWriter(memory_stream, Encoding.UTF8);
+            }
+            else
+            {
+                xml_text_writer = Writer;
+            }
+
+            xml_text_writer.Formatting = Formatting.Indented;
+
+            xml_text_writer.WriteStartDocument();
+
+            xml_text_writer.WriteStartElement("XnaContent");
+            xml_text_writer.WriteStartElement("Asset");
+            xml_text_writer.WriteStartAttribute("Type");
+            xml_text_writer.WriteString("Game1.Map");
+            xml_text_writer.WriteEndAttribute();
+
+            {
+                //xml_text_writer.WriteElementString("Name", fileName);
+                xml_text_writer.WriteElementString("MapDimensions", GLB_Data.MapSize.Width.ToString() + " " + GLB_Data.MapSize.Height.ToString());
+                //xml_text_writer.WriteElementString("MapDimensions", (GLB_Data.MapSize.Width*2).ToString() + " " + (GLB_Data.MapSize.Height*2).ToString());
+                xml_text_writer.WriteElementString("TileSize", "4 4");
+                xml_text_writer.WriteElementString("FileTileSize", GLB_Data.MapSize.TileSize.ToString() + " " + GLB_Data.MapSize.TileSize.ToString());
+                xml_text_writer.WriteElementString("SpawnMapPosition", "10 10");
+
+
+                // Texture
+                if (GLB_Data.TilesTexture == null)
+                {
+                    xml_text_writer.WriteElementString("TextureName", "null");
+                }
+                else
+                {
+                    string texName = GLB_Data.TextureFileName;
+                    xml_text_writer.WriteElementString("TextureName", texName);
+                }
+                
+                {
+                    for (int id_z = 0; id_z < GLB_Data.MapSize.Depth; id_z++)
+                    {
+                        string layerName = "newLayer";
+
+                        if (id_z == 0)
+                        {
+                            layerName = "BaseLayer";
+                        }
+
+                        if (id_z == 1)
+                        {
+                            layerName = "FringeLayer";
+                        }
+
+                        if (id_z == 2)
+                        {
+                            layerName = "ObjectLayer";
+                        }
+
+                        xml_text_writer.WriteStartElement(layerName);
+                        xml_text_writer.WriteString(Environment.NewLine);
+                        //xml_text_writer.WriteValue(id_z);
+                        {
+
+
+                            for (int id_y = 0; id_y < GLB_Data.MapSize.Height; id_y++)
+                            {
+
+                                int[] aux_tile_row = new int[GLB_Data.MapSize.Width];
+
+                                for (int id_x = 0; id_x < GLB_Data.MapSize.Width; id_x++)
+                                {
+                                    aux_tile_row[id_x] = GLB_Data.TileMap[id_z, id_x, id_y].id;
+                                }
+
+                                // write row
+                                StringBuilder aux_string_builder = new StringBuilder();
+
+                                for (int n = 0; n < aux_tile_row.GetLength(0); n++)
+                                {
+                                    //if (n >= 16 && n < 32)
+                                    if (n == aux_tile_row.GetLength(0) - 1)
+                                    {
+                                        aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                        //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                    }
+                                    else
+                                    {
+                                        aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                        //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                    }
+                                }
+
+                                xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
+                                //xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
+
+                            }// for (layers);
+                        }
+                        xml_text_writer.WriteEndElement();
+                    }
+
+                    xml_text_writer.WriteStartElement("CollisionLayer");
+                    xml_text_writer.WriteString(Environment.NewLine);
+
+                    // walk layer
+                    for (int id_y = 0; id_y < GLB_Data.MapSize.Height; id_y++)
+                    {
+                        //int[] aux_tile_row = new int[GLB_Data.MapSize.Width * 2];
+
+                        //for (int id_x = 0; id_x < GLB_Data.MapSize.Width * 2; id_x++)
+                        int[] aux_tile_row = new int[GLB_Data.MapSize.Width];
+
+                        for (int id_x = 0; id_x < GLB_Data.MapSize.Width; id_x++)
+                        {
+                            //aux_tile_row[id_x] = Convert.ToInt32(GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x/2, id_y].walkable);
+                            aux_tile_row[id_x] = Convert.ToInt32(GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].walkable);
+
+                            //if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x/2, id_y].terrain_type == 2)
+                            if (GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].terrain_type > 1)
+                                aux_tile_row[id_x] = GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].terrain_type;
+                        }
+
+                        // write row
+                        StringBuilder aux_string_builder = new StringBuilder();
+
+                        for (int n = 0; n < aux_tile_row.GetLength(0); n++)
+                        {
+                            //switch the ones and zeroes
+                            if (aux_tile_row[n] == 1)
+                                aux_tile_row[n] = 0;
+                            else if (aux_tile_row[n] == 0)
+                                aux_tile_row[n] = 1;
+
+
+                            if (n == aux_tile_row.GetLength(0) - 1)
+                            {
+                                //if (n >= 16 && n < 32)
+                                aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                            }
+                            else
+                            {
+                                //if (n >= 16 && n < 32)
+                                aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                                //aux_string_builder.Append(Convert.ToString(aux_tile_row[n]) + " ");
+                            }
+                        }
+
+                        xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
+                        //xml_text_writer.WriteString(aux_string_builder.ToString() + Environment.NewLine);
+                    }
+                }
+                xml_text_writer.WriteEndElement();// CollisionLayer;
+                
+            }
+
+
+            //write warps
+            if (GLB_Data.portals.Count > 0)
+                xml_text_writer.WriteStartElement("Warps");
+
+            for (int i = 0; i < GLB_Data.portals.Count; i++)
+            {
+                xml_text_writer.WriteString(Environment.NewLine);
+                string warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + GLB_Data.portals[i].y.ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + GLB_Data.destinations[i].y.ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+
+                xml_text_writer.WriteString(Environment.NewLine);
+                warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + (GLB_Data.portals[i].y - 1).ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + (GLB_Data.destinations[i].y - 1).ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+
+                xml_text_writer.WriteString(Environment.NewLine);
+                warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + (GLB_Data.portals[i].y - 2).ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + (GLB_Data.destinations[i].y - 2).ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+
+                xml_text_writer.WriteString(Environment.NewLine);
+                warpStr = "";
+                warpStr += GLB_Data.MapName.Substring(GLB_Data.MapName.LastIndexOf(@"\") + 1).Replace(".xml", "") + ";";
+                warpStr += GLB_Data.portals[i].x.ToString() + ";" + (GLB_Data.portals[i].y - 3).ToString() + ";";
+                warpStr += GLB_Data.destinations[i].name + ";";
+                warpStr += GLB_Data.destinations[i].x.ToString() + ";" + (GLB_Data.destinations[i].y - 3).ToString() + ";";
+                xml_text_writer.WriteString(warpStr);
+            }
+
+            if (GLB_Data.portals.Count > 0)
+            {
+                xml_text_writer.WriteString(Environment.NewLine);
+                xml_text_writer.WriteEndElement();
+            }
+
+
+
+            //write warps
+            xml_text_writer.WriteStartElement("polys");
+
+            for (int i = 0; i < GLB_Data.marqueeHist.Count; i++)
+            {
+                string strType = "t1";
+
+                if (GLB_Data.marqueeHistType[i] > 1)
+                {
+                    strType = "t" + GLB_Data.marqueeHistType[i].ToString();
+                }
+
+                xml_text_writer.WriteString(Environment.NewLine);
+                string warpStr = "";
+                warpStr += GLB_Data.marqueeHist[i].X.ToString() + ";" + GLB_Data.marqueeHist[i].Y.ToString() + ";";
+                warpStr += GLB_Data.marqueeHist[i].Width.ToString() + ";" + GLB_Data.marqueeHist[i].Height.ToString() + ";";
+                warpStr += strType + ";";
+                xml_text_writer.WriteString(warpStr);
+            }
+
+            xml_text_writer.WriteString(Environment.NewLine);
+            xml_text_writer.WriteEndElement();
+            
+
+            if (GLB_Data.fixedCombatNPCs.Count > 0)
+                xml_text_writer.WriteStartElement("FixedCombatEntries");
+
+            xml_text_writer.WriteString(Environment.NewLine);
+
+            foreach (FixedCombatNPC combatNPC in GLB_Data.fixedCombatNPCs)
+            {
+                xml_text_writer.WriteString("skellySoldier, " + (combatNPC.x * 96).ToString() + ", " + (combatNPC.y * 96).ToString());
+                xml_text_writer.WriteString(Environment.NewLine);
+            }
+
+            if (GLB_Data.fixedCombatNPCs.Count > 0)
+                xml_text_writer.WriteEndElement();
+            
             xml_text_writer.WriteEndElement();// Asset
 
             xml_text_writer.WriteFullEndElement();

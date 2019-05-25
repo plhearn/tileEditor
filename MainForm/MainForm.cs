@@ -268,6 +268,8 @@ namespace XNA_Map_Editor
         //monster edit form
         EditSwitches editSwitches;
 
+        //prevent click from registering when you open a new file
+        bool openingFile = false;
 
         #endregion
 

@@ -8,6 +8,7 @@ using XNA_Map_Editor.Classes;
 using XNA_Map_Editor.Helpers;
 using XNA = Microsoft.Xna.Framework;
 using XNAGraphics = Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace XNA_Map_Editor
 {
@@ -197,6 +198,12 @@ namespace XNA_Map_Editor
 
             //  Set selected tile
             parent_form.SetSelectedTile(aux_tile, aux_rect);
+
+            if (Keyboard.GetState().IsKeyDown(XNA.Input.Keys.A))
+            {
+                parent_form.SetSelectedTile(GLB_Data.TilePalette, aux_rect);
+            }
+
             selected_area = aux_rect;
 
             this.Invalidate(true);

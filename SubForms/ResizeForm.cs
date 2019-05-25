@@ -80,6 +80,9 @@ namespace XNA_Map_Editor.SubForms
             }
 
             ResizeMap(Convert.ToInt32(updwn_depth.Value), Convert.ToInt32(updwn_width.Value), Convert.ToInt32(updwn_height.Value));
+            
+            if(nPadTop.Value != 0 || nPadBottom.Value != 0 || nPadLeft.Value != 0 || nPadRight.Value != 0)
+                PadMap();
 
             this.Dispose(true);
 
@@ -151,6 +154,59 @@ namespace XNA_Map_Editor.SubForms
                     {
                         GLB_Data.TileMap[GLB_Data.TileMap.GetLength(0) - 1, id_x, id_y].walkable = aux_walk_layer[id_x, id_y].walkable;
                         GLB_Data.TerrainLayout[id_x, id_y] = aux_terrain_layer[id_x, id_y];
+                    }
+                }
+            }
+
+        }
+
+        private void PadMap()
+        {
+            int Depth = Convert.ToInt32(updwn_depth.Value);
+            int padTop = Convert.ToInt32(nPadTop.Value);
+            int padBottom = Convert.ToInt32(nPadBottom.Value);
+            int padLeft = Convert.ToInt32(nPadLeft.Value);
+            int padRight = Convert.ToInt32(nPadRight.Value);
+
+
+            GLB_Data.MapSize.Width += padLeft + padRight;
+            GLB_Data.MapSize.Height += padTop + padBottom;
+
+
+            // temp copy
+            Tile[,,] aux_tile_map = (Tile[,,])GLB_Data.TileMap.Clone();
+            
+            GLB_Data.TileMap = new Tile[Depth + Constants.WALK_LAYER, GLB_Data.MapSize.Width, GLB_Data.MapSize.Height];
+            GLB_Data.TerrainLayout = new Int32[GLB_Data.MapSize.Width, GLB_Data.MapSize.Height];
+            main_form.InitTileMap();
+            main_form.ShowCurrentLayer();
+
+            for (int id_z = 0; id_z < GLB_Data.MapSize.Depth; id_z++)
+            {
+                for (int id_y = 0; id_y < Math.Max(GLB_Data.MapSize.Height, GLB_Data.MapSize.Height - padTop + padBottom); id_y++)
+                {
+                    for (int id_x = 0; id_x < Math.Max(GLB_Data.MapSize.Width, GLB_Data.MapSize.Width - padLeft + padRight); id_x++)
+                    {
+                        if (id_z < aux_tile_map.GetLength(0) &&
+                             id_x < aux_tile_map.GetLength(1) &&
+                             id_y < aux_tile_map.GetLength(2))
+                        {
+                            // Copy existing data
+                            GLB_Data.TileMap[id_z, Math.Max(id_x + padLeft, 0), Math.Max(id_y + padTop, 0)].id = aux_tile_map[id_z, id_x, id_y].id;
+                            //GLB_Data.TileMap[id_z, id_x + padLeft, id_y + padTop].grid_location = aux_tile_map[id_z, id_x, id_y].grid_location;
+
+                            if(id_x < GLB_Data.TileMap.GetLength(1) && id_y < GLB_Data.TileMap.GetLength(2))
+                                GLB_Data.TileMap[id_z, id_x, id_y].grid_location = new XNA.Point(id_x, id_y);
+
+                            if (GLB_Data.TileMap[id_z, Math.Max(id_x + padLeft, 0), Math.Max(id_y + padTop, 0)].id == Constants.NULL_TILE)
+                            {
+                                GLB_Data.TileMap[id_z, Math.Max(id_x + padLeft, 0), Math.Max(id_y + padTop, 0)].texture_location = new XNA.Point();
+                            }
+                            else
+                            {
+                                GLB_Data.TileMap[id_z, Math.Max(id_x + padLeft, 0), Math.Max(id_y + padTop, 0)].texture_location = aux_tile_map[id_z, id_x, id_y].texture_location;
+                            }
+                        }
                     }
                 }
             }

@@ -45,6 +45,7 @@ namespace XNA_Map_Editor.Classes
 
         public Texture2D FromFile(string path, bool preMultiplyAlpha = true)
         {
+
             using (Stream fileStream = File.OpenRead(path))
                 return FromStream(fileStream, preMultiplyAlpha);
         }

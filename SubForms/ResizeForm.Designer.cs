@@ -46,12 +46,26 @@
             this.btn_resize = new System.Windows.Forms.Button();
             this.btn_cancel = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nPadRight = new System.Windows.Forms.NumericUpDown();
+            this.nPadLeft = new System.Windows.Forms.NumericUpDown();
+            this.nPadBottom = new System.Windows.Forms.NumericUpDown();
+            this.nPadTop = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_height)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_width)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_depth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadBottom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadTop)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -272,11 +286,143 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.nPadRight);
+            this.groupBox3.Controls.Add(this.nPadLeft);
+            this.groupBox3.Controls.Add(this.nPadBottom);
+            this.groupBox3.Controls.Add(this.nPadTop);
+            this.groupBox3.Location = new System.Drawing.Point(311, 60);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Size = new System.Drawing.Size(188, 140);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Pad Map";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(4, 109);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(49, 13);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Pad right";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(4, 81);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Pad left";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(4, 55);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Pad bottom";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(4, 27);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Pad top";
+            // 
+            // nPadRight
+            // 
+            this.nPadRight.Location = new System.Drawing.Point(82, 108);
+            this.nPadRight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nPadRight.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nPadRight.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.nPadRight.Name = "nPadRight";
+            this.nPadRight.Size = new System.Drawing.Size(80, 20);
+            this.nPadRight.TabIndex = 3;
+            // 
+            // nPadLeft
+            // 
+            this.nPadLeft.Location = new System.Drawing.Point(82, 80);
+            this.nPadLeft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nPadLeft.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nPadLeft.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.nPadLeft.Name = "nPadLeft";
+            this.nPadLeft.Size = new System.Drawing.Size(80, 20);
+            this.nPadLeft.TabIndex = 2;
+            // 
+            // nPadBottom
+            // 
+            this.nPadBottom.Location = new System.Drawing.Point(82, 51);
+            this.nPadBottom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nPadBottom.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nPadBottom.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.nPadBottom.Name = "nPadBottom";
+            this.nPadBottom.Size = new System.Drawing.Size(80, 20);
+            this.nPadBottom.TabIndex = 1;
+            // 
+            // nPadTop
+            // 
+            this.nPadTop.Location = new System.Drawing.Point(82, 23);
+            this.nPadTop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nPadTop.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nPadTop.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.nPadTop.Name = "nPadTop";
+            this.nPadTop.Size = new System.Drawing.Size(80, 20);
+            this.nPadTop.TabIndex = 0;
+            // 
             // ResizeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 257);
+            this.ClientSize = new System.Drawing.Size(518, 261);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.btn_resize);
             this.Controls.Add(this.groupBox2);
@@ -294,6 +440,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.updwn_width)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_depth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadBottom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nPadTop)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,5 +471,14 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btn_resize;
         private System.Windows.Forms.Button btn_cancel;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown nPadRight;
+        private System.Windows.Forms.NumericUpDown nPadLeft;
+        private System.Windows.Forms.NumericUpDown nPadBottom;
+        private System.Windows.Forms.NumericUpDown nPadTop;
     }
 }

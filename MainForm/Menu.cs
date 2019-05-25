@@ -159,6 +159,7 @@ namespace XNA_Map_Editor
 
         private void loadMapToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             // Open load dialog
             DialogResult loaded_result = this.load_map_dialog.ShowDialog();
 
@@ -209,6 +210,7 @@ namespace XNA_Map_Editor
 
                     terrain_editor_form.PopulateCombo();
 
+                    openingFile = true;
 
                     // loading done
                     //MessageBox.Show("TileMap loaded successfully!", "Save Map", MessageBoxButtons.OK, MessageBoxIcon.Information);
