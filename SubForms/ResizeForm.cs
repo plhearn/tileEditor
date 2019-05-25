@@ -80,9 +80,25 @@ namespace XNA_Map_Editor.SubForms
             }
 
             ResizeMap(Convert.ToInt32(updwn_depth.Value), Convert.ToInt32(updwn_width.Value), Convert.ToInt32(updwn_height.Value));
-            
-            if(nPadTop.Value != 0 || nPadBottom.Value != 0 || nPadLeft.Value != 0 || nPadRight.Value != 0)
-                PadMap();
+
+
+            int padTop = Convert.ToInt32(nPadTop.Value);
+            int padBottom = Convert.ToInt32(nPadBottom.Value);
+            int padLeft = Convert.ToInt32(nPadLeft.Value);
+            int padRight = Convert.ToInt32(nPadRight.Value);
+
+            if (padTop != 0)
+                PadMap(padTop, 0, 0 ,0);
+
+            if (padBottom != 0)
+                PadMap(0, padBottom, 0, 0);
+
+            if (padLeft != 0)
+                PadMap(0, 0, padLeft, 0);
+
+            if (padRight != 0)
+                PadMap(0, 0, 0, padRight);
+
 
             this.Dispose(true);
 
@@ -160,13 +176,9 @@ namespace XNA_Map_Editor.SubForms
 
         }
 
-        private void PadMap()
+        private void PadMap(int padTop, int padBottom, int padLeft, int padRight)
         {
             int Depth = Convert.ToInt32(updwn_depth.Value);
-            int padTop = Convert.ToInt32(nPadTop.Value);
-            int padBottom = Convert.ToInt32(nPadBottom.Value);
-            int padLeft = Convert.ToInt32(nPadLeft.Value);
-            int padRight = Convert.ToInt32(nPadRight.Value);
 
 
             GLB_Data.MapSize.Width += padLeft + padRight;
