@@ -61,6 +61,7 @@ namespace XNA_Map_Editor.Helpers
         , FixedCombat = 12
         , Block = 13
         , Switch = 14
+        , MarqueeSelect = 15
     };
 
     public enum Direction

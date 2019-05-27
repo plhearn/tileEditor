@@ -306,6 +306,7 @@
     <None Include="Resources\monster16.png" />
     <EmbeddedResource Include="Resources\monster32.png" />
     <EmbeddedResource Include="Resources\NPC32.png" />
+    <None Include="Resources\SelectTiles.png" />
     <Content Include="Resources\TileSize.png" />
     <Content Include="xna_map_editor.ico" />
     <EmbeddedResource Include="Resources\white_default_tile.png" />

@@ -192,9 +192,17 @@ namespace XNA_Map_Editor
             }
 
             if ((GLB_Data.Brush == PaintTool.MarqueeBrush || GLB_Data.Brush == PaintTool.MarqueeEraser || 
-                 GLB_Data.Brush == PaintTool.MarqueeWalk   || GLB_Data.Brush == PaintTool.MarqueeTerrain) && GLB_Data.MarqueeSelection.Show)
+                 GLB_Data.Brush == PaintTool.MarqueeWalk   || GLB_Data.Brush == PaintTool.MarqueeTerrain) && (GLB_Data.MarqueeSelection.Show))
             {
                 DrawMarqueeSelection();
+            }
+
+            if ( GLB_Data.Brush == PaintTool.MarqueeSelect && GLB_Data.MarqueeSelection.Show)
+            {
+                DrawMarqueeTileSelect();
+
+                if (movingSelectedTiles)
+                    DrawMarqueeSelectedTilesAsCursor();
             }
 
             // END
@@ -443,6 +451,72 @@ namespace XNA_Map_Editor
 
         }
 
+        private void DrawMarqueeSelectedTilesAsCursor()
+        {
+            System.Drawing.Point current_mouse = this.xna_renderer.PointToClient(Control.MousePosition);
+
+            current_mouse = Camera.WorldPosition(current_mouse);
+
+            System.Drawing.Rectangle aux_rect = HelperClass.SnapToGrid(new System.Drawing.Point(current_mouse.X, current_mouse.Y));
+
+            if (aux_rect.Width == 0)
+            {
+                // out of bounds no rendering
+                return;
+            }
+
+            aux_rect = Camera.TransformToGrid(aux_rect);
+
+            for (int id_y = 0; id_y < GLB_Data.MarqueeSelection.Height; id_y++)
+            {
+                for (int id_x = 0; id_x < GLB_Data.MarqueeSelection.Width; id_x++)
+                {
+                    int sel_tiles_x = id_x % (GLB_Data.TileMap.GetLength(1));
+                    int sel_tiles_y = id_y % (GLB_Data.TileMap.GetLength(2));
+
+                    int offsetInitial_x = GLB_Data.MarqueeSelection.InitialTile.X + id_x;
+                    int offsetInitial_y = GLB_Data.MarqueeSelection.InitialTile.Y + id_y;
+                    
+
+                    XNA.Rectangle dest_rect = new XNA.Rectangle(aux_rect.X + id_x * Camera.ScaledTileSize,
+                                                                aux_rect.Y + id_y * Camera.ScaledTileSize,
+                                                                Camera.ScaledTileSize,
+                                                                Camera.ScaledTileSize);
+
+                    if (HideLayers)
+                    {
+                        XNA.Rectangle src_rect = new XNA.Rectangle(GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].texture_location.X * GLB_Data.MapSize.TileSize,
+                                                               GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].texture_location.Y * GLB_Data.MapSize.TileSize,
+                                                               GLB_Data.MapSize.TileSize,
+                                                               GLB_Data.MapSize.TileSize);
+
+                        // white semi-transparent
+                        sprite_batch.Draw(GLB_Data.TilesTexture, dest_rect, src_rect, new XNA.Color(255, 255, 255, 200));
+                    }
+                    else
+                    {
+                        for (int d = 0; d < GLB_Data.TileMap.GetLength(0); d++)
+                        {
+                            XNA.Rectangle src_rect = new XNA.Rectangle(GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].texture_location.X * GLB_Data.MapSize.TileSize,
+                                                               GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].texture_location.Y * GLB_Data.MapSize.TileSize,
+                                                               GLB_Data.MapSize.TileSize,
+                                                               GLB_Data.MapSize.TileSize);
+
+                            // white semi-transparent
+                            sprite_batch.Draw(GLB_Data.TilesTexture, dest_rect, src_rect, new XNA.Color(255, 255, 255, 200));
+                        }
+                    }
+
+
+
+                }
+            }
+
+            // Store last cell mouse was positioned
+            HelperClass.SetLastSelectedPoint(current_mouse);
+
+        }
+
         ///////////////////////////////////////////////////////////////////////////
         // DrawMap()
         // 
@@ -587,6 +661,51 @@ namespace XNA_Map_Editor
             GLB_Data.MarqueeSelection.Height = world_rect.Height / Camera.ScaledTileSize;
             GLB_Data.MarqueeSelection.InitialTile.X = world_rect.X / Camera.ScaledTileSize;
             GLB_Data.MarqueeSelection.InitialTile.Y = world_rect.Y / Camera.ScaledTileSize;
+        }
+
+        private void DrawMarqueeTileSelect()
+        {
+            // Note: Marquee Points are given in world coordinates            
+            System.Drawing.Rectangle aux_inital_rectangle = HelperClass.SnapToGrid(GLB_Data.MarqueeSelection.InitialLocation);
+            System.Drawing.Rectangle aux_final_rectangle = HelperClass.SnapToGrid(GLB_Data.MarqueeSelection.FinalLocation);
+
+            XNA.Rectangle draw_rect = Camera.Transform(CreateMarqueeArea(aux_inital_rectangle, aux_final_rectangle));
+            XNA.Rectangle world_rect = CreateMarqueeArea(aux_inital_rectangle, aux_final_rectangle);
+
+            DrawRectangle(draw_rect, XNA.Color.Fuchsia);
+
+            // Draw tiled selection
+            // Units are in tile #'s 
+
+            int selected_tiles_width = GLB_Data.SelectedTiles.GetLength(0);
+            int selected_tiles_height = GLB_Data.SelectedTiles.GetLength(1);
+
+            int marquee_width = draw_rect.Width / Camera.ScaledTileSize;
+            int marquee_height = draw_rect.Height / Camera.ScaledTileSize;
+            
+
+            // set values to glb_data
+            GLB_Data.MarqueeSelection.Width = world_rect.Width / Camera.ScaledTileSize;
+            GLB_Data.MarqueeSelection.Height = world_rect.Height / Camera.ScaledTileSize;
+            GLB_Data.MarqueeSelection.InitialTile.X = world_rect.X / Camera.ScaledTileSize;
+            GLB_Data.MarqueeSelection.InitialTile.Y = world_rect.Y / Camera.ScaledTileSize;
+
+            System.Drawing.Point current_mouse = this.xna_renderer.PointToClient(Control.MousePosition);
+
+            if (TilesSelected)
+            {
+                if (current_mouse.X >= draw_rect.X && current_mouse.X <= (draw_rect.X + draw_rect.Width) &&
+                   current_mouse.Y >= draw_rect.Y && current_mouse.Y <= (draw_rect.Y + draw_rect.Height))
+                {
+                    mouseHoveringOverSelection = true;
+                    this.Cursor = Cursors.SizeAll;
+                }
+
+                if(movingSelectedTiles)
+                    this.Cursor = Cursors.SizeAll;
+            }
+
+            //Console.WriteLine(mouseHoveringOverSelection + "  x: " + current_mouse.X + "  y: " + current_mouse.Y + " boxW: " + draw_rect.X + "-" + (draw_rect.X + draw_rect.Width) + " boxH: " + draw_rect.Y + "-" + (draw_rect.Y + draw_rect.Height));
         }
 
         ///////////////////////////////////////////////////////////////////////////

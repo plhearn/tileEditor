@@ -49,7 +49,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.Eraser:
@@ -67,7 +69,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.Walk:
@@ -85,7 +89,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.Fill:
@@ -103,7 +109,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.MarqueeBrush:
@@ -121,7 +129,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.MarqueeEraser:
@@ -139,7 +149,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.MarqueeWalk:
@@ -158,7 +170,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.MarqueeTerrain:
@@ -177,7 +191,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.Portal:
@@ -196,7 +212,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.Chest:
@@ -215,7 +233,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.NPC:
@@ -234,7 +254,9 @@ namespace XNA_Map_Editor
                     toolbar_fixedCombat.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
                 case PaintTool.FixedCombat:
@@ -253,7 +275,9 @@ namespace XNA_Map_Editor
                     toolbar_NPC.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
 
@@ -273,7 +297,9 @@ namespace XNA_Map_Editor
                     toolbar_chest.CheckState = CheckState.Unchecked;
                     toolbar_NPC.CheckState = CheckState.Unchecked;
                     toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
                     ShowTerrainTypes = false;
+                    TilesSelected = false;
                     break;
 
 
@@ -293,6 +319,29 @@ namespace XNA_Map_Editor
                     toolbar_chest.CheckState = CheckState.Unchecked;
                     toolbar_NPC.CheckState = CheckState.Unchecked;
                     toolbar_block.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Unchecked;
+                    ShowTerrainTypes = false;
+                    TilesSelected = false;
+                    break;
+
+
+                case PaintTool.MarqueeSelect:
+                    toolbar_switch.CheckState = CheckState.Unchecked;
+                    toolbar_fixedCombat.CheckState = CheckState.Unchecked;
+                    toolbar_portal.CheckState = CheckState.Unchecked;
+                    toolbar_terrain_brush.CheckState = CheckState.Unchecked;
+                    toolbar_marquee_walk.CheckState = CheckState.Unchecked;
+                    toolbar_marquee_eraser.CheckState = CheckState.Unchecked;
+                    toolbar_marquee.CheckState = CheckState.Unchecked;
+                    toolbar_bucket.CheckState = CheckState.Unchecked;
+                    toolbar_walkability.CheckState = CheckState.Unchecked;
+                    toolbar_brush.CheckState = CheckState.Unchecked;
+                    toolbar_eraser.CheckState = CheckState.Unchecked;
+                    toolbar_marquee_walk.CheckState = CheckState.Unchecked;
+                    toolbar_chest.CheckState = CheckState.Unchecked;
+                    toolbar_NPC.CheckState = CheckState.Unchecked;
+                    toolbar_block.CheckState = CheckState.Unchecked;
+                    toolbar_select.CheckState = CheckState.Checked;
                     ShowTerrainTypes = false;
                     break;
 
@@ -374,6 +423,10 @@ namespace XNA_Map_Editor
                     SwitchPaint(sender, e);
                     break;
 
+                case PaintTool.MarqueeSelect:
+                    MoveSelectedTiles(sender, e, GLB_Data.MarqueeSelection);
+                    break;
+
                 default:
                     // default, should never get here
                     break;
@@ -424,7 +477,11 @@ namespace XNA_Map_Editor
                     cursor_stream = (assembly.GetManifestResourceStream("XNA_Map_Editor.Resources.MarqueeTerrain.cur"));
                     this.Cursor = new Cursor(cursor_stream);
                     break;
-
+                    
+                case PaintTool.MarqueeSelect:
+                    cursor_stream = (assembly.GetManifestResourceStream("XNA_Map_Editor.Resources.MarqueeCursor.cur"));
+                    this.Cursor = new Cursor(cursor_stream);
+                    break;
 
                 default:
                     this.Cursor = Cursors.Arrow;
@@ -870,7 +927,88 @@ namespace XNA_Map_Editor
                 GLB_Data.switches.Add(Switch);
             }
         }
-        // BRUSHES FUNCTIONS
+
+        private void MoveSelectedTiles(object sender, MouseEventArgs e, MarqueeData Selection)
+        {
+
+            XNA.Point selected_tile = HelperClass.TileSnapToGrid(Camera.WorldPosition(e.Location));
+            Tile tile_in_map = GLB_Data.TileMap[0, selected_tile.X, selected_tile.Y];
+
+
+            if (HideLayers) //only move tiles in visible layer
+            {
+                if (selected_tile == tile_in_map.grid_location)
+                {
+                    // Paint the marquee selection
+                    for (int id_y = 0; id_y < Selection.Height; id_y++)
+                    {
+                        for (int id_x = 0; id_x < Selection.Width; id_x++)
+                        {
+                            int sel_tiles_x = id_x % (GLB_Data.TileMap.GetLength(1));
+                            int sel_tiles_y = id_y % (GLB_Data.TileMap.GetLength(2));
+
+                            int offsetInitial_x = GLB_Data.MarqueeSelection.InitialTile.X + id_x;
+                            int offsetInitial_y = GLB_Data.MarqueeSelection.InitialTile.Y + id_y;
+
+                            int offsetFinal_x = selected_tile.X + id_x;
+                            int offsetFinal_y = selected_tile.Y + id_y;
+
+                            //copy tiles to destination
+                            GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetFinal_x, offsetFinal_y].id = GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].id;
+                            GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetFinal_x, offsetFinal_y].texture_location = GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].texture_location;
+                            GLB_Data.TileMap[GetWalkLayer(), offsetFinal_x, offsetFinal_y].walkable = GLB_Data.TileMap[GetWalkLayer(), offsetInitial_x, offsetInitial_y].walkable;
+
+                            //blank out selected tiles
+                            GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].id = -1;
+                            GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].texture_location.X = -2;
+                            GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].texture_location.Y = 0;
+                            GLB_Data.TileMap[GetWalkLayer(), offsetInitial_x, offsetInitial_y].walkable = false;
+                            GLB_Data.TileMap[GLB_Data.SelectedLayer, offsetInitial_x, offsetInitial_y].terrain_type = 0;
+
+                        }
+                    }
+                }
+            }
+            else   //move tiles in all layers
+            {
+                if (selected_tile == tile_in_map.grid_location)
+                {
+                    // Paint the marquee selection
+                    for (int d = 0; d < GLB_Data.TileMap.GetLength(0); d++)
+                        for (int id_y = 0; id_y < Selection.Height; id_y++)
+                        {
+                            for (int id_x = 0; id_x < Selection.Width; id_x++)
+                            {
+                                int sel_tiles_x = id_x % (GLB_Data.TileMap.GetLength(1));
+                                int sel_tiles_y = id_y % (GLB_Data.TileMap.GetLength(2));
+
+                                int offsetInitial_x = GLB_Data.MarqueeSelection.InitialTile.X + id_x;
+                                int offsetInitial_y = GLB_Data.MarqueeSelection.InitialTile.Y + id_y;
+
+                                int offsetFinal_x = selected_tile.X + id_x;
+                                int offsetFinal_y = selected_tile.Y + id_y;
+
+                                //copy tiles to destination
+                                GLB_Data.TileMap[d, offsetFinal_x, offsetFinal_y].id = GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].id;
+                                GLB_Data.TileMap[d, offsetFinal_x, offsetFinal_y].texture_location = GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].texture_location;
+                                GLB_Data.TileMap[GetWalkLayer(), offsetFinal_x, offsetFinal_y].walkable = GLB_Data.TileMap[GetWalkLayer(), offsetInitial_x, offsetInitial_y].walkable;
+
+                                //blank out selected tiles
+                                GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].id = -1;
+                                GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].texture_location.X = -2;
+                                GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].texture_location.Y = 0;
+                                GLB_Data.TileMap[GetWalkLayer(), offsetInitial_x, offsetInitial_y].walkable = false;
+                                GLB_Data.TileMap[d, offsetInitial_x, offsetInitial_y].terrain_type = 0;
+
+                            }
+                        }
+                }
+
+            }
+
+            GLB_Data.MarqueeSelection.Show = false;
+
+        }
 
         #endregion
     }

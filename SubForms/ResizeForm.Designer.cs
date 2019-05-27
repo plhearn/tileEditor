@@ -45,7 +45,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btn_resize = new System.Windows.Forms.Button();
             this.btn_cancel = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -55,17 +54,18 @@
             this.nPadLeft = new System.Windows.Forms.NumericUpDown();
             this.nPadBottom = new System.Windows.Forms.NumericUpDown();
             this.nPadTop = new System.Windows.Forms.NumericUpDown();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_height)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_width)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_depth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nPadRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPadLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPadBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPadTop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -277,15 +277,6 @@
             this.btn_cancel.UseVisualStyleBackColor = true;
             this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(9, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(45, 41);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label11);
@@ -417,6 +408,15 @@
             this.nPadTop.Size = new System.Drawing.Size(80, 20);
             this.nPadTop.TabIndex = 0;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(9, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(45, 41);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // ResizeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,13 +439,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.updwn_height)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_width)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.updwn_depth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nPadRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPadLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPadBottom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nPadTop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

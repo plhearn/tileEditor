@@ -222,6 +222,9 @@ namespace XNA_Map_Editor
         Boolean         ShowWalkLayer;
         Byte            AlphaValue;
         Boolean         ShowTerrainTypes;
+        Boolean         TilesSelected;
+        Boolean         mouseHoveringOverSelection;
+        Boolean         movingSelectedTiles;
 
         // needed for reading embeeded resources
         Assembly        assembly;
@@ -455,6 +458,24 @@ namespace XNA_Map_Editor
                     return;
                 }
 
+                if (GLB_Data.Brush == PaintTool.MarqueeSelect)
+                {
+                    if(mouseHoveringOverSelection)
+                    {
+                        movingSelectedTiles = true;
+                    }
+                    else
+                    {
+                        // Marquee is beign created, save initial point
+                        GLB_Data.MarqueeSelection.Show = true;
+                        GLB_Data.MarqueeSelection.InitialLocation = Camera.SystemPointTransform(e.Location);
+                        GLB_Data.MarqueeSelection.FinalLocation = Camera.SystemPointTransform(e.Location);
+                        TilesSelected = false;
+                    }
+
+                    return;
+                }
+
                 if (!ValidTileSelected() && 
                     GLB_Data.Brush != PaintTool.Walk &&
                     GLB_Data.Brush != PaintTool.Eraser &&
@@ -653,6 +674,53 @@ namespace XNA_Map_Editor
                 return;
             }
 
+            if (GLB_Data.Brush == PaintTool.MarqueeSelect)
+            {
+                if (TilesSelected)
+                {
+                     
+                }
+                else if (movingSelectedTiles)
+                {
+
+                }
+                else
+                {
+                    int aux_x = e.Location.X;
+                    int aux_y = e.Location.Y;
+
+                    if (e.Location.X > GLB_Data.MapSize.Width * Camera.ScaledTileSize)
+                    {
+                        aux_x = GLB_Data.MapSize.Width * Camera.ScaledTileSize;
+                    }
+
+                    if (e.Location.X < 0)
+                    {
+                        aux_x = 0;
+                    }
+
+                    if (e.Location.Y > GLB_Data.MapSize.Height * Camera.ScaledTileSize)
+                    {
+                        aux_y = GLB_Data.MapSize.Height * Camera.ScaledTileSize;
+                    }
+
+                    if (e.Location.Y < 0)
+                    {
+                        aux_y = 0;
+                    }
+
+                    System.Drawing.Point aux_point = new System.Drawing.Point(aux_x, aux_y);
+
+                    // Mouse moving set its location as last position in marquee rectangle
+                    GLB_Data.MarqueeSelection.FinalLocation = Camera.SystemPointTransform(aux_point);
+
+                    TrimMarqueeSelection();
+                }
+
+                return;
+            }
+
+
 
 
             if (e.Button == MouseButtons.Left && !HelperClass.SameSelectedCell(e.Location) && GLB_Data.TilesTexture != null)
@@ -684,7 +752,7 @@ namespace XNA_Map_Editor
 
         private void xna_renderer_MouseUp(object sender, MouseEventArgs e)
         {
-            if ( GLB_Data.Brush == PaintTool.MarqueeBrush && GLB_Data.TilesTexture != null && e.Button == MouseButtons.Left)
+            if ( (GLB_Data.Brush == PaintTool.MarqueeBrush) && GLB_Data.TilesTexture != null && e.Button == MouseButtons.Left)
             {
                 // Mouse moving set its location as last position in marquee rectangle
                 GLB_Data.MarqueeSelection.FinalLocation = e.Location;
@@ -794,6 +862,41 @@ namespace XNA_Map_Editor
                 }
 
 
+            }
+
+            if (GLB_Data.Brush == PaintTool.MarqueeSelect && GLB_Data.TilesTexture != null && e.Button == MouseButtons.Left)
+            {
+                if(movingSelectedTiles)
+                {
+                    //GLB_Data.MarqueeSelection.FinalLocation = e.Location;
+
+                    movingSelectedTiles = false;
+                    mouseHoveringOverSelection = false;
+                    this.Cursor = new Cursor((assembly.GetManifestResourceStream("XNA_Map_Editor.Resources.MarqueeCursor.cur")));
+
+                    DoBrushLogic(sender, e);
+                }
+                else if(mouseHoveringOverSelection)
+                {
+
+                }
+                else
+                {
+                    // Mouse moving set its location as last position in marquee rectangle
+                    GLB_Data.MarqueeSelection.FinalLocation = e.Location;
+
+                    TrimMarqueeSelection();
+
+                    // Map is about to change , save current status
+                    undo_redo.AddUndoHistory();
+                    CheckUndoRedo();
+                    
+
+                    //Marquee Selection finsihed
+                    //GLB_Data.MarqueeSelection.Show = false;
+
+                    TilesSelected = true;
+                }
             }
         }
 
@@ -1198,8 +1301,8 @@ namespace XNA_Map_Editor
             }
         }
 
-        #endregion
 
+        #endregion
     }// MainForm
 
 }// Namespace

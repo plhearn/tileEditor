@@ -393,6 +393,16 @@ namespace XNA_Map_Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SelectTiles {
+            get {
+                object obj = ResourceManager.GetObject("SelectTiles", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap SendBackwardHS {
             get {
                 object obj = ResourceManager.GetObject("SendBackwardHS", resourceCulture);

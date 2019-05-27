@@ -331,6 +331,20 @@ namespace XNA_Map_Editor
             }
         }
 
+        private void toolbar_select_Click(object sender, EventArgs e)
+        {
+            if (GLB_Data.Brush == PaintTool.MarqueeSelect)
+            {
+                // no need to re-assign
+                toolbar_select.CheckState = CheckState.Checked;
+            }
+            else
+            {
+                // assign
+                SetBrush(PaintTool.MarqueeSelect);
+            }
+        }
+
         #endregion
     }
 }
